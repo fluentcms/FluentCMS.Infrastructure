@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Plugins/">
+    <Project Path="Plugins/FluentCMS.Infrastructure.Plugins.Abstractions/FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
+    <Project Path="Plugins/FluentCMS.Infrastructure.Plugins/FluentCMS.Infrastructure.Plugins.csproj" />
+  </Folder>
+</Solution>
