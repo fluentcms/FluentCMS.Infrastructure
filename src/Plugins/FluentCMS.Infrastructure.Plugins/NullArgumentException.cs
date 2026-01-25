@@ -9,7 +9,7 @@ public class NullArgumentException(string? paramName) : ArgumentException("Argum
             throw new NullArgumentException(paramName);
         }
     }
-    public static string RequireNonEmptyOrNullString([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
+    public static string RequireNonNullOrEmptyString([NotNull] object? argument, [CallerArgumentExpression(nameof(argument))] string? paramName = null)
     {
         if (argument is null || (argument is string str && string.IsNullOrEmpty(str)))
         {
