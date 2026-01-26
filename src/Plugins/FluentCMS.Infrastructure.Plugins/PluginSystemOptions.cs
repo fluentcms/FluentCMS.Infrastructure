@@ -37,6 +37,14 @@ public class PluginSystemOptions
     public bool UnloadALCsAfterStartup { get; set; } = false;
 
     /// <summary>
+    /// Gets or sets a value indicating whether timeout violations should be strict (throw exceptions) or warning-only.
+    /// When true, plugin loading timeouts will throw exceptions and fail startup.
+    /// When false, timeouts are logged as warnings but don't prevent startup.
+    /// Default: false
+    /// </summary>
+    public bool StrictTimeout { get; set; } = false;
+
+    /// <summary>
     /// Gets the list of registered ALCs for lifecycle management.
     /// Used internally to track AssemblyLoadContexts created during plugin loading.
     /// </summary>

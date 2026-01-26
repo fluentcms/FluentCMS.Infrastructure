@@ -31,13 +31,18 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
                 else
                 {
                     // Not loaded: load into a collectible context
+                    cancellationToken.ThrowIfCancellationRequested();
                     _logger.LogDebug("Loading assembly {Assembly} into collectible context", assemblyFile);
                     var alc = new PluginLoadContext(assemblyFile);
+
+                    // Assembly loading can be cancelled in .NET 6+ if the method supports it
                     var newlyLoadedAssembly = alc.LoadFromAssemblyPath(assemblyFile);
 
+                    cancellationToken.ThrowIfCancellationRequested();
                     var pluginTypes = FindPluginTypes(newlyLoadedAssembly, cancellationToken).ToArray();
                     if (pluginTypes.Length > 0)
                     {
+                        cancellationToken.ThrowIfCancellationRequested();
                         types.AddRange(pluginTypes);
                         _pluginSystemOptions.RegisteredALCs.Add(alc);
                     }
@@ -52,6 +57,11 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
                     }
                 }
 
+            }
+            catch (OperationCanceledException)
+            {
+                _logger.LogWarning("Plugin loading was cancelled while processing assembly {Assembly}", assemblyFile);
+                throw;
             }
             catch (Exception ex)
             {
