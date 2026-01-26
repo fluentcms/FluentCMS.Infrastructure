@@ -14,6 +14,48 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
     private string _pluginStartupInterfaceFullName = default!;
     private PathAssemblyResolver _resolver = default!;
 
+    // Cache for assembly probe paths - expensive to build, so cache across discovery operations
+    private static readonly Lazy<HashSet<string>> _cachedProbePaths = new(BuildProbePaths);
+
+    // Cache for PathAssemblyResolver to reuse across multiple MLC creations
+    private static readonly Lazy<PathAssemblyResolver> _cachedResolver = new(() => new PathAssemblyResolver(_cachedProbePaths.Value));
+
+    private static HashSet<string> BuildProbePaths()
+    {
+        var probeFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
+        // (1) Already loaded assemblies in the host (best-effort, skip dynamic/in-memory)
+        var assemblyEnumerationStart = Environment.TickCount64;
+        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
+        {
+            var loc = SafeGetLocation(asm);
+            if (!string.IsNullOrEmpty(loc) && File.Exists(loc))
+                probeFiles.Add(loc);
+        }
+        var assemblyEnumerationTime = Environment.TickCount64 - assemblyEnumerationStart;
+
+        // Assembly enumeration is expensive - log timing for performance monitoring
+        System.Diagnostics.Debug.WriteLine($"[PluginSystem] Assembly enumeration completed in {assemblyEnumerationTime}ms, found {probeFiles.Count} paths");
+
+        // (2) Core runtime directory (System.Private.CoreLib, System.Runtime, etc.)
+        var runtimeDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
+        AddAllDlls(runtimeDir, probeFiles);
+
+        // (3) Host base directory (bin/{Configuration}/{TFM})
+        var baseDir = AppContext.BaseDirectory;
+        AddAllDlls(baseDir, probeFiles);
+
+        // (4) We skip plugin folder here - added dynamically per discovery instance
+        // (5) Shared frameworks: Microsoft.NETCore.App + Microsoft.AspNetCore.App
+        TryAddContainingDir(typeof(ILogger), probeFiles);        // Extensions
+        TryAddContainingDir(typeof(Enumerable), probeFiles);     // NETCore.App
+
+        // Fallback: DOTNET_ROOT/shared paths (in case Locations are empty, e.g., single-file)
+        TryAddDotnetShared(probeFiles);
+
+        return probeFiles;
+    }
+
     public List<string> Scan(CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
@@ -145,38 +187,25 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
         _pluginStartupInterfaceFullName = typeof(IPluginStartup).FullName
             ?? throw new PluginDiscoveryException("Could not determine the full name of IPluginStartup.");
 
-        var probeFiles = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        // Use cached probe paths and create an enhanced set for this discovery instance
+        var probeFiles = new HashSet<string>(_cachedProbePaths.Value, StringComparer.OrdinalIgnoreCase);
 
-        // (1) Already loaded assemblies in the host (best-effort, skip dynamic/in-memory)
-        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
-        {
-            var loc = SafeGetLocation(asm);
-            if (!string.IsNullOrEmpty(loc) && File.Exists(loc))
-                probeFiles.Add(loc);
-        }
-
-        // (2) Core runtime directory (System.Private.CoreLib, System.Runtime, etc.)
-        var runtimeDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
-        AddAllDlls(runtimeDir, probeFiles);
-
-        // (3) Host base directory (bin/{Configuration}/{TFM})
-        var baseDir = AppContext.BaseDirectory;
-        AddAllDlls(baseDir, probeFiles);
-
-        // (4) Plugin folder (where your plugins live)
+        // Add the specific plugin folder for this discovery instance
         AddAllDlls(_pluginAssemblyPath, probeFiles);
 
-        // (5) Shared frameworks: Microsoft.NETCore.App + Microsoft.AspNetCore.App
-        // Try to discover via known types (works even in non-SDK hosts)
-        //TryAddContainingDir(typeof(Microsoft.AspNetCore.Builder.WebApplication), probeFiles);  // AspNetCore.App
-        TryAddContainingDir(typeof(ILogger), probeFiles);        // Extensions
-        TryAddContainingDir(typeof(Enumerable), probeFiles);                                   // NETCore.App
-
-        // Fallback: DOTNET_ROOT/shared paths (in case Locations are empty, e.g., single-file)
-        TryAddDotnetShared(probeFiles);
-
-        // IMPORTANT: PathAssemblyResolver wants file paths, not directories.
-        _resolver = new PathAssemblyResolver(probeFiles);
+        // Use the cached resolver as base, but create a new one if the plugin folder adds new paths
+        if (probeFiles.Count > _cachedProbePaths.Value.Count)
+        {
+            // Plugin folder added new paths, create instance-specific resolver
+            _resolver = new PathAssemblyResolver(probeFiles);
+            _logger.LogDebug("Created instance-specific PathAssemblyResolver due to plugin folder additions");
+        }
+        else
+        {
+            // No additional paths, can reuse the cached resolver
+            _resolver = _cachedResolver.Value;
+            _logger.LogDebug("Using cached PathAssemblyResolver for optimal performance");
+        }
     }
 
     /// <summary>
