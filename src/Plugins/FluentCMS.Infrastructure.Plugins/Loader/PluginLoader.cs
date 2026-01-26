@@ -48,11 +48,10 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
                     }
                     else
                     {
-                        // No plugins -> unload immediately
-                        _logger.LogDebug("No plugin types found in {Assembly}, unloading", assemblyFile);
+                        // No plugins -> unload ALC to prevent memory leaks from collectible ALCs
+                        // Don't force synchronous GC - let the runtime handle cleanup naturally
+                        _logger.LogDebug("No plugin types found in {Assembly}, unloading ALC", assemblyFile);
                         alc.Unload();
-                        GC.Collect();
-                        GC.WaitForPendingFinalizers(); GC.Collect();
                         continue; // move to next assembly
                     }
                 }

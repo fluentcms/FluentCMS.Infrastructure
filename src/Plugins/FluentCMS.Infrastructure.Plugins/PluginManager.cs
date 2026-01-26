@@ -139,12 +139,15 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
         // Unload ALCs if configured to reduce memory usage
         if (_pluginSystemOptions.UnloadALCsAfterStartup)
         {
-            _logger.LogInformation("Unloading registered ALCs after startup.");
+            _logger.LogInformation("Unloading registered ALCs after startup to reduce memory footprint.");
+            var unloadedCount = 0;
             foreach (var alc in _pluginSystemOptions.RegisteredALCs)
             {
                 try
                 {
                     alc.Unload();
+                    unloadedCount++;
+                    _logger.LogDebug("Unloaded ALC for reduction of memory footprint");
                 }
                 catch (Exception ex)
                 {
@@ -152,6 +155,7 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                 }
             }
             _pluginSystemOptions.RegisteredALCs.Clear();
+            _logger.LogInformation("Successfully unloaded {Count} ALCs. Memory will be reclaimed during next garbage collection cycle.", unloadedCount);
         }
     }
 }
