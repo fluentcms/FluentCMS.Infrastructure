@@ -105,9 +105,39 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
 
     private void Init()
     {
-        var executablePath = Assembly.GetExecutingAssembly().Location;
+        string? executablePath = null;
+
+        // Try to get the executing assembly location
+        try
+        {
+            executablePath = Assembly.GetExecutingAssembly().Location;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to get executing assembly location. This may happen in single-file deployments or obfuscated environments.");
+        }
+
+        // If Location is null or empty (e.g., single-file deployments), fallback to ProcessPath
+        if (string.IsNullOrEmpty(executablePath))
+        {
+            executablePath = Environment.ProcessPath;
+            if (string.IsNullOrEmpty(executablePath))
+            {
+                throw new PluginDiscoveryException(
+                    "Could not determine the executing assembly location. " +
+                    "Assembly.GetExecutingAssembly().Location returned null or empty, and " +
+                    "Environment.ProcessPath is also null or empty. " +
+                    "This may occur in single-file deployments or restricted environments where " +
+                    "the assembly location cannot be determined.");
+            }
+            _logger.LogInformation("Using ProcessPath as fallback for executable location: {Path}", executablePath);
+        }
+
         _pluginAssemblyPath = Path.GetDirectoryName(executablePath)
-            ?? throw new PluginDiscoveryException("Could not determine the executable folder path.");
+            ?? throw new PluginDiscoveryException(
+                "Could not determine the executable folder path from the executable location. " +
+                $"Resolved executable path: '{executablePath}'. " +
+                "This is unexpected and indicates a malformed path.");
 
         _pluginAttributeFullName = typeof(PluginAttribute).FullName
             ?? throw new PluginDiscoveryException("Could not determine the full name of PluginAttribute.");
