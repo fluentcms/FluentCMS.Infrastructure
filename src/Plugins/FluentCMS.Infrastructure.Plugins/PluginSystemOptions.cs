@@ -29,6 +29,18 @@ public class PluginSystemOptions
     /// </summary>
     public TimeSpan PluginLoadTimeout { get; set; } = TimeSpan.FromSeconds(30);
 
+    /// <summary>
+    /// Gets or sets a value indicating whether to unload ALCs after plugin startup.
+    /// When enabled, ALCs used for plugin loading are unloaded after startup to reduce memory usage.
+    /// Default: false
+    /// </summary>
+    public bool UnloadALCsAfterStartup { get; set; } = false;
+
+    /// <summary>
+    /// Gets the list of registered ALCs for lifecycle management.
+    /// Used internally to track AssemblyLoadContexts created during plugin loading.
+    /// </summary>
+    internal List<AssemblyLoadContext> RegisteredALCs { get; } = [];
 
     public ILoggerFactory LoggerFactory { get; set; } = default!;
 }

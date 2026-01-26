@@ -39,6 +39,7 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
                     if (pluginTypes.Length > 0)
                     {
                         types.AddRange(pluginTypes);
+                        _pluginSystemOptions.RegisteredALCs.Add(alc);
                     }
                     else
                     {

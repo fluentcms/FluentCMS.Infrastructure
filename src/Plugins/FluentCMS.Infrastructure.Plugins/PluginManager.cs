@@ -88,5 +88,23 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
         var failedCount = _pluginMetadataList.Count(p => p.Status != PluginStatus.Started);
         if (failedCount > 0)
             _logger.LogWarning("Plugins startup process with errors: {Count}", failedCount);
+
+        // Unload ALCs if configured to reduce memory usage
+        if (_pluginSystemOptions.UnloadALCsAfterStartup)
+        {
+            _logger.LogInformation("Unloading registered ALCs after startup.");
+            foreach (var alc in _pluginSystemOptions.RegisteredALCs)
+            {
+                try
+                {
+                    alc.Unload();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error unloading ALC during cleanup.");
+                }
+            }
+            _pluginSystemOptions.RegisteredALCs.Clear();
+        }
     }
 }
