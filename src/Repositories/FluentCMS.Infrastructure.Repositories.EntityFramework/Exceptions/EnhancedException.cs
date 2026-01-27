@@ -1,7 +1,4 @@
-﻿using System.Diagnostics;
-using System.Text;
-
-namespace FluentCMS.Infrastructure.Exceptions;
+﻿namespace FluentCMS.Infrastructure.Repositories.EntityFramework.Exceptions;
 
 public class EnhancedException : Exception
 {

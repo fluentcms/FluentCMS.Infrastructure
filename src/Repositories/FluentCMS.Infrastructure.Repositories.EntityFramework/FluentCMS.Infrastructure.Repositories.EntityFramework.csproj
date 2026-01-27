@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\Common\FluentCMS.Infrastructure.Common\FluentCMS.Infrastructure.Common.csproj" />
-      <ProjectReference Include="..\..\Exceptions\FluentCMS.Infrastructure.Exceptions\FluentCMS.Infrastructure.Exceptions.csproj" />
       <ProjectReference Include="..\FluentCMS.Infrastructure.Repositories\FluentCMS.Infrastructure.Repositories.csproj" />
     </ItemGroup>
 </Project>

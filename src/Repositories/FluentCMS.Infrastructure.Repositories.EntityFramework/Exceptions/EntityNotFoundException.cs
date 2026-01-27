@@ -1,4 +1,4 @@
-﻿namespace FluentCMS.Infrastructure.Exceptions;
+﻿namespace FluentCMS.Infrastructure.Repositories.EntityFramework.Exceptions;
 
 public class EntityNotFoundException : EnhancedException
 {
