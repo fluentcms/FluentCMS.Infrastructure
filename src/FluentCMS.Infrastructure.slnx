@@ -8,6 +8,9 @@
     <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.Tests/FluentCMS.Infrastructure.EventBus.Tests.csproj" />
     <Project Path="EventBus/FluentCMS.Infrastructure.EventBus/FluentCMS.Infrastructure.EventBus.csproj" />
   </Folder>
+  <Folder Name="/Logging/">
+    <Project Path="Logging/FluentCMS.Infrastructure.Logging/FluentCMS.Infrastructure.Logging.csproj" />
+  </Folder>
   <Folder Name="/Plugins/">
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins.Abstractions/FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins/FluentCMS.Infrastructure.Plugins.csproj" />
