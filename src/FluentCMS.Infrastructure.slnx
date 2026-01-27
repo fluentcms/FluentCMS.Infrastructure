@@ -1,6 +1,24 @@
 <Solution>
+  <Folder Name="/Common/">
+    <Project Path="Common/FluentCMS.Infrastructure.Common/FluentCMS.Infrastructure.Common.csproj" />
+  </Folder>
+  <Folder Name="/EventBus/">
+    <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.Example/FluentCMS.Infrastructure.EventBus.Example.csproj" />
+    <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.InMemory/FluentCMS.Infrastructure.EventBus.InMemory.csproj" />
+    <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.Tests/FluentCMS.Infrastructure.EventBus.Tests.csproj" />
+    <Project Path="EventBus/FluentCMS.Infrastructure.EventBus/FluentCMS.Infrastructure.EventBus.csproj" />
+  </Folder>
+  <Folder Name="/Exceptions/">
+    <Project Path="Exceptions/FluentCMS.Infrastructure.Exceptions/FluentCMS.Infrastructure.Exceptions.csproj" />
+  </Folder>
   <Folder Name="/Plugins/">
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins.Abstractions/FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins/FluentCMS.Infrastructure.Plugins.csproj" />
+  </Folder>
+  <Folder Name="/Repositories/">
+    <Project Path="Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite/FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite.csproj" />
+    <Project Path="Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework.SqlServer/FluentCMS.Infrastructure.Repositories.EntityFramework.SqlServer.csproj" />
+    <Project Path="Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework/FluentCMS.Infrastructure.Repositories.EntityFramework.csproj" />
+    <Project Path="Repositories/FluentCMS.Infrastructure.Repositories/FluentCMS.Infrastructure.Repositories.csproj" />
   </Folder>
 </Solution>
