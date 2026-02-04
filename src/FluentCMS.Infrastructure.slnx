@@ -2,6 +2,12 @@
   <Folder Name="/Common/">
     <Project Path="Common/FluentCMS.Infrastructure.Common/FluentCMS.Infrastructure.Common.csproj" />
   </Folder>
+  <Folder Name="/Configuration/">
+    <Project Path="Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite/FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite.csproj" />
+    <Project Path="Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework.SqlServer/FluentCMS.Infrastructure.Configuration.EntityFramework.SqlServer.csproj" />
+    <Project Path="Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework/FluentCMS.Infrastructure.Configuration.EntityFramework.csproj" />
+    <Project Path="Configuration/FluentCMS.Infrastructure.Configuration/FluentCMS.Infrastructure.Configuration.csproj" />
+  </Folder>
   <Folder Name="/EventBus/">
     <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.Example/FluentCMS.Infrastructure.EventBus.Example.csproj" />
     <Project Path="EventBus/FluentCMS.Infrastructure.EventBus.InMemory/FluentCMS.Infrastructure.EventBus.InMemory.csproj" />
@@ -14,6 +20,11 @@
   <Folder Name="/Plugins/">
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins.Abstractions/FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins/FluentCMS.Infrastructure.Plugins.csproj" />
+  </Folder>
+  <Folder Name="/Providers/">
+    <Project Path="Providers/FluentCMS.Infrastructure.Providers.Abstractions/FluentCMS.Infrastructure.Providers.Abstractions.csproj" />
+    <Project Path="Providers/FluentCMS.Infrastructure.Providers.Repositories.EntityFramework/FluentCMS.Infrastructure.Providers.Repositories.EntityFramework.csproj" />
+    <Project Path="Providers/FluentCMS.Infrastructure.Providers/FluentCMS.Infrastructure.Providers.csproj" />
   </Folder>
   <Folder Name="/Repositories/">
     <Project Path="Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite/FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite.csproj" />
