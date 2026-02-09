@@ -1,126 +1,92 @@
-# FluentCMS.EventBus.Abstractions
+# FluentCMS.Infrastructure.EventBus
 
-**Event bus abstractions for FluentCMS, targeting .NET 9.**
+Event-driven communication abstractions for FluentCMS Infrastructure.
 
-## Overview
+## Description
 
-`FluentCMS.EventBus.Abstractions` provides the core interfaces and base types for implementing event-driven architectures in .NET applications. It defines the contracts for events, event publishers, and event subscribers, enabling decoupled communication between components using the publish/subscribe pattern.
+FluentCMS Infrastructure EventBus provides a set of abstractions and utilities for implementing event-driven communication between components in the FluentCMS ecosystem. It includes base classes and interfaces for domain events, their publication, and subscription, facilitating a decoupled architecture.
 
-- **IEvent**: Marker interface for domain events, with timestamp and unique ID
-- **IEventPublisher**: Interface for publishing events to subscribers
-- **IEventSubscriber<TEvent>**: Interface for handling events
-- **EventBase**: Abstract base class for events with sensible defaults
-- **DI Extensions**: Helper for registering event handlers
+## Key Features
 
-## Table of Contents
-- [Getting Started](#getting-started)
-- [Interfaces & Base Classes](#interfaces--base-classes)
-- [Dependency Injection](#dependency-injection)
-- [Usage Example](#usage-example)
-- [Best Practices](#best-practices)
-- [Extending](#extending)
-- [Contributing](#contributing)
-- [License](#license)
+- `IEvent`: Marker interface for domain events, including properties for occurrence time and unique event ID.
+- `EventBase`: Abstract base class for domain events that provides default implementations for common properties.
+- `IEventSubscriber<TEvent>`: Interface for creating event handlers that respond to specific event types.
+- `IEventPublisher`: Interface for publishing domain events to all registered subscribers.
+- Dependency Injection extensions: `ServiceCollectionExtensions.AddEventHandler<TEvent, THandler>()` for registering event handlers in the service collection.
 
-## Getting Started
+## Installation
 
-### Prerequisites
-- [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
+Install via NuGet:
 
-Add a reference to this project or package in your solution:
-
-```sh
-dotnet add package FluentCMS.EventBus.Abstractions
+```bash
+dotnet add package FluentCMS.Infrastructure.EventBus --version 1.0.0
 ```
 
-## Interfaces & Base Classes
+*Replace `1.0.0` with the desired version.*
 
-### IEvent
+## Basic Usage
+
+### Defining an Event
+
+Create a class that inherits from `EventBase`:
+
 ```csharp
-public interface IEvent
+using FluentCMS.Infrastructure.EventBus;
+
+public class UserCreatedEvent : EventBase
 {
-    DateTimeOffset OccurredAt { get; }
-    Guid EventId { get; }
+    public Guid UserId { get; init; }
+    public string UserName { get; init; }
 }
 ```
 
-### EventBase
+### Creating an Event Handler
+
+Implement the `IEventSubscriber<TEvent>` interface:
+
 ```csharp
-public abstract class EventBase : IEvent
+using FluentCMS.Infrastructure.EventBus.Abstractions;
+
+public class UserCreatedHandler : IEventSubscriber<UserCreatedEvent>
 {
-    public DateTimeOffset OccurredAt { get; init; }
-    public Guid EventId { get; init; }
-    protected EventBase() { /* ... */ }
-}
-```
-
-### IEventPublisher
-```csharp
-public interface IEventPublisher
-{
-    Task Publish<TEvent>(TEvent data, CancellationToken cancellationToken = default) where TEvent : class, IEvent;
-}
-```
-
-### IEventSubscriber<TEvent>
-```csharp
-public interface IEventSubscriber<TEvent> where TEvent : class, IEvent
-{
-    Task Handle(TEvent domainEvent, CancellationToken cancellationToken = default);
-}
-```
-
-## Dependency Injection
-
-Register event handlers using the provided extension:
-
-```csharp
-services.AddEventHandler<UserRegisteredEvent, SendWelcomeEmailSubscriber>();
-```
-
-This registers `SendWelcomeEmailSubscriber` as a scoped handler for `UserRegisteredEvent`.
-
-## Usage Example
-
-```csharp
-// Define an event
-global using FluentCMS.EventBus.Abstractions;
-
-public class UserRegisteredEvent : EventBase { public string UserId { get; set; } }
-
-// Implement a subscriber
-public class SendWelcomeEmailSubscriber : IEventSubscriber<UserRegisteredEvent>
-{
-    public Task Handle(UserRegisteredEvent @event, CancellationToken cancellationToken)
+    public Task Handle(UserCreatedEvent domainEvent, CancellationToken cancellationToken = default)
     {
-        // Send welcome email logic
+        // Handle the event, e.g., send email
+        Console.WriteLine($"User {domainEvent.UserName} created.");
         return Task.CompletedTask;
     }
 }
-
-// Register the handler
-services.AddEventHandler<UserRegisteredEvent, SendWelcomeEmailSubscriber>();
-
-// Publish an event (implementation required)
-await eventPublisher.Publish(new UserRegisteredEvent { UserId = "123" });
 ```
 
-## Best Practices
-- Use `EventBase` for consistent event metadata.
-- Register handlers with appropriate lifetimes (scoped by default).
-- Keep event handlers focused and non-blocking.
-- Use unique event types for different domain actions.
+### Registering the Handler
 
-## Extending
-- Implement custom event publishers or subscribers as needed.
-- Extend `EventBase` for additional metadata.
+Register the event handler using the extension method in your dependency injection setup (e.g., `Program.cs` or `Startup.cs`):
 
-## Contributing
-Contributions are welcome! Please open issues or submit pull requests for improvements or bug fixes.
+```csharp
+using FluentCMS.Infrastructure.EventBus;
+
+services.AddEventHandler<UserCreatedEvent, UserCreatedHandler>();
+```
+
+### Publishing an Event
+
+Inject and use the `IEventPublisher` to publish events (note: an implementation of `IEventPublisher` must be provided separately):
+
+```csharp
+using FluentCMS.Infrastructure.EventBus.Abstractions;
+
+// Assume _eventPublisher is injected (e.g., via constructor)
+await _eventPublisher.Publish(new UserCreatedEvent
+{
+    UserId = Guid.NewGuid(),
+    UserName = "JohnDoe"
+});
+```
+
+## Dependencies
+
+- `Microsoft.Extensions.DependencyInjection.Abstractions` (>= 10.0.2)
 
 ## License
-MIT License
 
----
-
-**FluentCMS.EventBus.Abstractions** is part of the [FluentCMS](https://github.com/fluentcms/FluentCMS) ecosystem.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

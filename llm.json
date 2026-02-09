@@ -1,0 +1,2235 @@
+{
+  "ProjectMap": {
+    "Name": ".",
+    "Path": "",
+    "FolderSummary": "The root folder is responsible for containing the project\u0027s configuration files (like .gitignore and .tasks.json for build and exclusion rules), legal documentation (such as the LICENSE file), and the primary source code subfolder (src).",
+    "Files": [
+      {
+        "Name": ".gitignore",
+        "Summary": {
+          "Summary": "This .gitignore file configures Git to ignore files and directories specific to Visual Studio development, including temporary files, build results, and artifacts from various add-ons to prevent them from being committed to version control.",
+          "Exceptions": "The file includes explicit exceptions for certain files and directories, such as !Directory.Build.rsp, !**/[Pp]ackages/build/, and VSCode settings files, allowing them to be tracked despite matching ignore patterns.",
+          "Features": "Implements comprehensive ignore patterns for user-specific files, build outputs, cache directories, test results, package outputs, and artifacts from tools like ReSharper, NUnit, and AWS SAM to ensure clean repositories.",
+          "Roles": [
+            "Configuration",
+            "Exclusion Rule"
+          ],
+          "Hash": "3407CEFC2A9D64F884FF3122A5ADE50C10D001D10F608062C20FF92B225AE436"
+        }
+      },
+      {
+        "Name": "LICENSE",
+        "Summary": {
+          "Summary": "This file contains the MIT License for FluentCMS, granting users permission to use, copy, modify, merge, publish, distribute, sublicense, and sell the software under the specified conditions.",
+          "Exceptions": "The copyright year is listed as 2026, which appears to be a future date.",
+          "Features": "Grants permissions for free use, modification, and redistribution of the software, with requirements to include copyright and permission notices.",
+          "Roles": [
+            "Legal Document"
+          ],
+          "Hash": "83F0902AE5BC89A9A0CC37F9B4DA115F3C0418EC270423726E13241138F6D623"
+        }
+      },
+      {
+        "Name": ".tasks.json",
+        "Summary": {
+          "Summary": "This JSON file defines a list of tasks for generating README documentation for various FluentCMS Infrastructure NuGet packages, each specifying details like agent, instructions, and context.",
+          "Exceptions": "The CreatedAt timestamp is dated in the future (2026-02-09), which may indicate it\u0027s a planned or mock configuration.",
+          "Features": "Task definitions with titles, assigned agents, detailed instructions for README creation, context paths, priorities, and statuses.",
+          "Roles": [
+            "Build Configuration",
+            "Task List"
+          ],
+          "Hash": "3FDA31A25367075B3BD628C2DF45A7A0CC3EFB8D2BF88B537210B9D1933E3B2A"
+        }
+      }
+    ],
+    "Directories": [
+      {
+        "Name": "src",
+        "Path": "src",
+        "FolderSummary": "The \u0060src\u0060 folder houses the source code for the infrastructure module of the FluentCMS project, including core components such as event handling, data repositories, logging, configuration, providers, common utilities, and plugin support.",
+        "Files": [
+          {
+            "Name": "FluentCMS.Infrastructure.slnx",
+            "Summary": {
+              "Summary": "This file is a Visual Studio solution file (.slnx) for the FluentCMS Infrastructure, organizing multiple .NET projects into logical folders based on their functionalities such as Common, Configuration, EventBus, Logging, Plugins, Providers, and Repositories.",
+              "Exceptions": "The use of .slnx format, which is not the standard .sln file, may be intended for Launch.VS extension support.",
+              "Features": "Provides modular structuring of projects with abstractions, multiple EntityFramework implementations for Sqlite and SqlServer in Configuration and Repositories, in-memory EventBus with example and test projects, logging, plugin system, and provider repositories.",
+              "Roles": [
+                "Solution Container",
+                "Project Organizer",
+                "Infrastructure Module"
+              ],
+              "Hash": "3DEB659B877BA0E52C63F68FBA402A308ADA4AD2EBEC8748CBA622A6B36E6266"
+            }
+          }
+        ],
+        "Directories": [
+          {
+            "Name": "EventBus",
+            "Path": "src/EventBus",
+            "FolderSummary": "The EventBus folder provides the core infrastructure for enabling decoupled event-driven communication within the FluentCMS project, including implementations like in-memory event buses, example usages, and associated tests.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.EventBus.Example",
+                "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.Example",
+                "FolderSummary": "The folder \u0022FluentCMS.Infrastructure.EventBus.Example\u0022 serves as a demonstration project for configuring and utilizing the EventBus infrastructure in FluentCMS, including dependency injection, event handling, logging, and performance tracking.",
+                "Files": [
+                  {
+                    "Name": "Program.cs",
+                    "Summary": {
+                      "Summary": "The provided code is a C# console application that demonstrates two different modes of an EventBus: Aggregate and FailFast. The application sets up an in-memory EventBus using dependency injection, registers event handlers for UserRegisteredEvent and OrderPlacedEvent, and measures the execution time of event publishing in both modes.",
+                      "Exceptions": "The code does not handle any exceptions explicitly. In Aggregate mode, errors are collected and thrown as an AggregateException. In FailFast mode, execution stops immediately upon the first error.",
+                      "Features": "Key features include:",
+                      "Roles": [
+                        "EventBus Configuration",
+                        "Dependency Injection Setup",
+                        "Event Handler Registration",
+                        "Logging Integration",
+                        "Performance Measurement"
+                      ],
+                      "Hash": "EAFAC4187A10FCA4B18E4A474E92B40771BC1F48DF1527BF3017124D009EF386"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.EventBus.Example.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.EventBus.Example, a .NET 10.0 console application that uses the FluentCMS.Infrastructure.EventBus.InMemory and FluentCMS.Infrastructure.EventBus libraries. It includes logging and dependency injection packages.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project"
+                      ],
+                      "Hash": "7CDD013C88E226F29343C5957F872A14BBE480D407626EE5C649CEFA7B5B23D4"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Events",
+                    "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.Example/Events",
+                    "FolderSummary": "The Events folder encapsulates event classes, such as OrderPlacedEvent (serving as both an event and a DTO) and UserRegisteredEvent (associated with users), to facilitate event-driven communication and data transfer within the system.",
+                    "Files": [
+                      {
+                        "Name": "OrderPlacedEvent.cs",
+                        "Summary": {
+                          "Summary": "OrderPlacedEvent.cs contains a class that represents an event raised when a customer places an order. The class inherits from EventBase and includes four required properties: OrderId (string), CustomerId (string), TotalAmount (decimal), and ItemCount (int). These properties are set during initialization and cannot be modified afterward.",
+                          "Exceptions": "None",
+                          "Features": "The class uses required properties with init accessors, ensuring that all properties must be set when the object is created. This enforces data integrity by preventing uninitialized state.",
+                          "Roles": [
+                            "Event",
+                            "Data Transfer Object (DTO)"
+                          ],
+                          "Hash": "D1D93797E9F0A0A12335BD616C19BC9F31E54153E82A1295EB95ABF20C9EC6F9"
+                        }
+                      },
+                      {
+                        "Name": "UserRegisteredEvent.cs",
+                        "Summary": {
+                          "Summary": "Event raised when a new user registers in the system",
+                          "Exceptions": "",
+                          "Features": "This class represents a user registration event. It inherits from EventBase and includes three required string properties: UserId, Email, and FullName.",
+                          "Roles": [
+                            "User"
+                          ],
+                          "Hash": "9C1F5C7DE420C24391501ADF69D3B873579CA47F216B8CA1F455544E871313BD"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  },
+                  {
+                    "Name": "Handlers",
+                    "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.Example/Handlers",
+                    "FolderSummary": "The Handlers folder contains classes responsible for processing business logic operations, commands, and events, such as sending order confirmations, updating inventory, creating user profiles, logging activities, and dispatching welcome emails.",
+                    "Files": [
+                      {
+                        "Name": "SendOrderConfirmationHandler.cs",
+                        "Summary": {
+                          "Summary": "The code file SendOrderConfirmationHandler.cs defines a class that handles the OrderPlacedEvent. It logs information about sending order confirmation emails to customers, including order ID, customer ID, and total amount. The class uses FluentCMS\u0027s event bus infrastructure and includes logging with ILogger. The Handle method simulates a delay of 120 milliseconds and logs the completion of sending the confirmation email. The namespace is FluentCMS.Infrastructure.EventBus.Example.Handlers, and the class implements IEventSubscriber\u003COrderPlacedEvent\u003E.",
+                          "Exceptions": "None",
+                          "Features": "None",
+                          "Roles": [
+                            "None"
+                          ],
+                          "Hash": "C768F547106C57C5059C6C4494E1E1E1B26D90335D1DFDE2AB87D794CC7BD80B"
+                        }
+                      },
+                      {
+                        "Name": "UpdateInventoryHandler.cs",
+                        "Summary": {
+                          "Summary": "Updates inventory when an order is placed. It handles the OrderPlacedEvent, logs the process, and simulates a delay before updating inventory successfully. The class uses dependency injection for ILogger and is async in nature.",
+                          "Exceptions": "UpdateInventoryHandler.cs",
+                          "Features": "UpdateInventoryHandler.cs",
+                          "Roles": [
+                            "UpdateInventoryHandler"
+                          ],
+                          "Hash": "FAFA8DF09712BC501CA1EBF1CC70946A3F37724B6C0B08E87D360185A9A324DE"
+                        }
+                      },
+                      {
+                        "Name": "CreateUserProfileHandler.cs",
+                        "Summary": {
+                          "Summary": "This file defines an event handler class that responds to a UserRegisteredEvent by logging and simulating the creation of a user profile.",
+                          "Exceptions": "The profile creation is simulated with a delay instead of actual database operations, making it an example implementation.",
+                          "Features": "Implements event subscribing for UserRegisteredEvent, includes logging of user ID and full name, asynchronous handling with cancellation token support, and a simulated delay for profile creation.",
+                          "Roles": [
+                            "Event Handler",
+                            "Event Subscriber"
+                          ],
+                          "Hash": "22FC4432A9D15EFBD342D0AB851CD7EFC72E1F88FFF6DD5E69725F0A33CA7806"
+                        }
+                      },
+                      {
+                        "Name": "LogUserActivityHandler.cs",
+                        "Summary": {
+                          "Summary": "The LogUserActivityHandler class logs user activity for audit purposes when a UserRegisteredEvent occurs. It implements the IEventSubscriber interface and uses dependency injection for ILogger. The handler logs the user ID and then simulates a delay before logging additional details including the occurrence time.",
+                          "Exceptions": "None specified in the provided code.",
+                          "Features": "The class includes a constructor that injects ILogger, and a Handle method that processes UserRegisteredEvent. The method logs two messages: one with the user ID and another with the user ID and occurrence time. It includes a simulated delay using Task.Delay.",
+                          "Roles": [
+                            "Event Subscriber",
+                            "Audit Logging"
+                          ],
+                          "Hash": "8754F9271EEC2C3D3B6D222F247204FDC7F4A1B0BA7A135FE2CEDCBDAA98DB93"
+                        }
+                      },
+                      {
+                        "Name": "SendWelcomeEmailHandler.cs",
+                        "Summary": {
+                          "Summary": "SendWelcomeEmailHandler.cs is a C# class that implements the IEventSubscriber interface to handle the UserRegisteredEvent. It logs information about sending a welcome email to a newly registered user and simulates a delay before confirming the email was sent successfully. The class uses dependency injection for ILogger and handles the event asynchronously with a CancellationToken.",
+                          "Exceptions": "None",
+                          "Features": "None",
+                          "Roles": [
+                            "None"
+                          ],
+                          "Hash": "A23B103BAC61492B27D86764CE72A456938D422BAA633DBAEA3780C4D9DFCCDF"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.EventBus.InMemory",
+                "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.InMemory",
+                "FolderSummary": "The FluentCMS.Infrastructure.EventBus.InMemory folder implements an in-memory event bus component for the FluentCMS project, handling event publishing, error management, and service registration without relying on external infrastructure.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.EventBus.InMemory.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.EventBus.InMemory",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project"
+                      ],
+                      "Hash": "1FC41ECEA8F7A9291555155AB8D21EA21F6B2B64606B484A160A83CA427EA5D2"
+                    }
+                  },
+                  {
+                    "Name": "Exceptions.cs",
+                    "Summary": {
+                      "Summary": "EventPublisherAggregatedException is a custom exception class designed to handle multiple exceptions thrown by event handlers for a specific event type. It inherits from AggregateException and provides a way to aggregate exceptions from multiple handlers for a given event type TEvent.",
+                      "Exceptions": "None",
+                      "Features": "This class aggregates exceptions from multiple event handlers for a specific event type. It provides a custom message that includes the name of the event type and allows for easy identification of the event type that caused the aggregated exceptions.",
+                      "Roles": [
+                        "Exception Aggregator",
+                        "Event Handler Exception Handler"
+                      ],
+                      "Hash": "25E9F498C56B248691185693BBFEB8E180782F84A4D7CD2E6E627E435339E5A8"
+                    }
+                  },
+                  {
+                    "Name": "ServiceCollectionExtensions.cs",
+                    "Summary": {
+                      "Summary": "Registers the generic event publisher and returns the services collection.",
+                      "Exceptions": "ArgumentNullException.ThrowIfNull(services)",
+                      "Features": "Configure options with default or provided configuration",
+                      "Roles": [
+                        "services.TryAddSingleton\u003CIEventPublisher, EventPublisher\u003E()"
+                      ],
+                      "Hash": "D143437DEEE277667D201AF06BD4281F583C8FF6CECF086C7622F7830EDC7554"
+                    }
+                  },
+                  {
+                    "Name": "EventPublisher.cs",
+                    "Summary": {
+                      "Summary": "In-memory event publisher implementation that invokes event handlers directly. Suitable for low latency scenarios with manageable event handlers. Registered as a singleton service.",
+                      "Exceptions": "EventPublisherAggregatedException\u003CTEvent\u003E",
+                      "Features": "In-memory event publisher, sequential or concurrent execution, error handling modes (FailFast or Aggregate), scope management, logging",
+                      "Roles": [
+                        "EventPublisher",
+                        "IEventPublisher"
+                      ],
+                      "Hash": "B3D2E771D77E61D1F7E5197833E099784CB429C5ABF6F616E98E86C2E8000EE7"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "The code file contains global using directives for various namespaces. The JSON should list each one.",
+                      "Exceptions": "The JSON must be valid. Ensure proper formatting and escaping if needed.",
+                      "Features": "The JSON should represent the using directives as an array of objects with \u0027using\u0027 keys.",
+                      "Roles": [
+                        "The user expects a JSON output with the using directives parsed correctly."
+                      ],
+                      "Hash": "F3C5EC7C4D594B250197958FC02FAF8BD280B1D04B9C2543A5B878793A5B0DB9"
+                    }
+                  },
+                  {
+                    "Name": "EventPublisherOptions.cs",
+                    "Summary": {
+                      "Summary": "Options for configuring the event publisher.",
+                      "Exceptions": "Defines how exceptions from event handlers are handled.",
+                      "Features": "Handlers execute SEQUENTIALLY in registration order for FailFast, or CONCURRENTLY for Aggregate.",
+                      "Roles": [
+                        "EventPublisherOptions",
+                        "ErrorHandlingMode"
+                      ],
+                      "Hash": "A5EB786E45102BD2221F8EF7E4B47462D5F50A93987B0C9B7CB23C85C2B270BD"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.EventBus.Tests",
+                "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.Tests",
+                "FolderSummary": "This folder contains unit tests for the EventBus infrastructure component of FluentCMS, verifying event publishing, handling, and service configurations using test classes and an in-memory subfolder for isolated testing.",
+                "Files": [
+                  {
+                    "Name": "ServiceCollectionExtensionsTests.cs",
+                    "Summary": {
+                      "Summary": "The ServiceCollectionExtensionsTests class contains tests for the AddEventHandler method in the FluentCMS Infrastructure EventBus. The tests verify that the method handles null services, registers handlers as scoped, returns the service collection, allows multiple handlers for the same event, and resolves handlers from a service provider.",
+                      "Exceptions": "ArgumentNullException",
+                      "Features": "AddEventHandler",
+                      "Roles": [
+                        "TestEvent",
+                        "TestEventHandler",
+                        "AnotherTestEventHandler"
+                      ],
+                      "Hash": "B9AE66225A7E2EEE340D937038CD3B3F3E7F21FC7198A126C70CDA499FE7BB5E"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.EventBus.Tests.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.EventBus.Tests, targeting .NET 10.0 with test dependencies.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project",
+                        "Test Project"
+                      ],
+                      "Hash": "184EF32A7F265633028ABFB49830C6467AA5156E8988F4DB9814AD44B50A62C4"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "This C# file defines global using directives, making various namespaces\u2014such as those for testing, mocking, dependency injection, and custom event bus components\u2014available throughout the project without explicit using statements in each file.",
+                      "Exceptions": "No exceptions or unexpected inclusions; all global usings appear standard for a modern C# project involving unit testing and infrastructure components.",
+                      "Features": "Exports global access to namespaces for unit testing (Xunit), assertions (FluentAssertions), mocking (Moq), dependency injection (Microsoft.Extensions.DependencyInjection and Microsoft.Extensions.Options), ASP.NET Core Http services, and custom event bus abstractions (FluentCMS event bus).",
+                      "Roles": [
+                        "Configuration",
+                        "Utility"
+                      ],
+                      "Hash": "80026D7E75605FCE87EC5186FF37219733E94B043BF99F1206BA7E07510CCDC2"
+                    }
+                  },
+                  {
+                    "Name": "EventBaseTests.cs",
+                    "Summary": {
+                      "Summary": "This file contains unit tests for the EventBase class in the FluentCMS Infrastructure EventBus namespace, verifying its constructor behavior, property initialization, uniqueness of event IDs, interface implementation, and support for derived events.",
+                      "Exceptions": "None; the file appears to be a standard unit test suite.",
+                      "Features": "Tests for setting OccurredAt timestamp, generating non-empty and unique EventId, implementing IEvent interface, enforcing init-only properties, and allowing inheritance in derived events.",
+                      "Roles": [
+                        "Unit Test",
+                        "Test Suite"
+                      ],
+                      "Hash": "032A5420D7DF22AFF4729D074C42D60FB38122337866F067E63B34BE73961A0E"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "InMemory",
+                    "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus.Tests/InMemory",
+                    "FolderSummary": "This folder contains unit tests for the in-memory event publishing system, covering event dispatching to subscribers, ServiceCollection extensions, aggregated exception handling, and configuration options.",
+                    "Files": [
+                      {
+                        "Name": "EventPublisherTests.cs",
+                        "Summary": {
+                          "Summary": "publish_failfastmode_shouldstoponfirstexception",
+                          "Exceptions": "publish_should_throw_argumentnullexception_wheneventisnull",
+                          "Features": "publish_should_throw_operationcanceledexception_whencancellationrequested",
+                          "Roles": [
+                            "publish_should_invoke_all_subscribers_whenmultiplesubscribersexist"
+                          ],
+                          "Hash": "F13BC0B3C9253A138CFA7FCA924C5894866B7D0247A7861ECC93303BF7CE24EC"
+                        }
+                      },
+                      {
+                        "Name": "ServiceCollectionExtensionsTests.cs",
+                        "Summary": {
+                          "Summary": "Analysis of ServiceCollectionExtensionsTests.cs file, which contains unit tests for the AddInMemoryEventBus method in the FluentCMS Infrastructure EventBus InMemory module.",
+                          "Exceptions": "The tests cover various scenarios including null service checks, service registration, configuration options, and fluent configuration.",
+                          "Features": "The tests validate the behavior of the AddInMemoryEventBus method, ensuring it handles null inputs, registers services correctly, applies default and custom configurations, and prevents duplicate registrations.",
+                          "Roles": [
+                            "ServiceCollectionExtensionsTests"
+                          ],
+                          "Hash": "887DC25844CA9085102025C8480101DFE79137B74ED1D441051A77CBFD0991C7"
+                        }
+                      },
+                      {
+                        "Name": "EventPublisherAggregatedExceptionTests.cs",
+                        "Summary": {
+                          "Summary": "This file contains unit tests for the EventPublisherAggregatedException class, verifying its constructor functionality, event type assignment, message content, inheritance, and handling of multiple or empty exceptions in the context of an in-memory event bus.",
+                          "Exceptions": "A nested TestEvent class inheriting from EventBase is included solely for testing purposes within the test class.",
+                          "Features": "Unit tests implementing validation of constructor for setting inner exceptions, event type, custom message including event type name, assignability to AggregateException, handling of multiple exceptions in order, and creation with empty exception collection.",
+                          "Roles": [
+                            "Unit Test"
+                          ],
+                          "Hash": "F46BB65973EA61A4497DD8893D3C26FF620D3A17D442B24FAA1B46771F6E2246"
+                        }
+                      },
+                      {
+                        "Name": "EventPublisherOptionsTests.cs",
+                        "Summary": {
+                          "Summary": "This file contains unit tests for the EventPublisherOptions class in the FluentCMS infrastructure, verifying the default error handling mode, the ability to set the mode via a setter, and the properties of the ErrorHandlingMode enum including its values and integer representations.",
+                          "Exceptions": "",
+                          "Features": "Unit tests for default mode initialization to Aggregate, mode setter functionality for FailFast and Aggregate, enum value count (2 values), and specific enum value mappings (FailFast=0, Aggregate=1).",
+                          "Roles": [
+                            "Test"
+                          ],
+                          "Hash": "92B7A6D823F764EAA71DBBDA3E06D80BD47492CDDC962D0BF02F305A81320910"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.EventBus",
+                "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus",
+                "FolderSummary": "This folder implements the infrastructure for an event bus in the FluentCMS project, providing a base class for domain events, service collection extensions, and abstractions to facilitate decoupled messaging between components.",
+                "Files": [
+                  {
+                    "Name": "EventBase.cs",
+                    "Summary": {
+                      "Summary": "Base class for domain events with common properties",
+                      "Exceptions": "",
+                      "Features": "This class provides a base implementation for domain events, including a timestamp and a unique identifier. It is abstract and implements the IEvent interface.",
+                      "Roles": [
+                        "Base class for domain events",
+                        "Implements IEvent interface"
+                      ],
+                      "Hash": "2F1A34D6CDA53CF9B71A6AE137D1403666B4831DE148669CB4CAD02ECE95F4EB"
+                    }
+                  },
+                  {
+                    "Name": "ServiceCollectionExtensions.cs",
+                    "Summary": {
+                      "Summary": "Registers an event handler with a specified lifetime scope for handling events of type TEvent using the handler THandler. The method ensures the service collection is not null and registers the handler as a scoped service. The method returns the modified service collection for chaining purposes. The method is generic and requires TEvent to be a class implementing IEvent and THandler to be a class implementing IEventSubscriber\u003CTEvent\u003E.",
+                      "Exceptions": "ArgumentNullException.ThrowIfNull(services);",
+                      "Features": "AddEventHandler\u003CTEvent, THandler\u003E",
+                      "Roles": [
+                        "fluentcms",
+                        "infrastructure",
+                        "eventbus"
+                      ],
+                      "Hash": "72A449092831131290EDD561D51C91BF73A94DE887F4E7833384429C75CE1285"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "The file _GlobalUsings.cs contains two global usings: FluentCMS.Infrastructure.EventBus.Abstractions and Microsoft.Extensions.DependencyInjection. These usings are used to import namespaces for event bus abstractions and dependency injection services, respectively, to avoid repetitive using statements in the codebase.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "B9E192DFFC0ADF678F5295D86BEC639DD68C7572700CFE13CC7CC6D8D1142512"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.EventBus.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.EventBus",
+                      "Exceptions": "None",
+                      "Features": "net10.0, ImplicitUsings enabled, Nullable enabled",
+                      "Roles": [
+                        "Infrastructure",
+                        "EventBus"
+                      ],
+                      "Hash": "CFC1700EA33F49C1A6FD1941F87B1FFED86EC1EBF39AD8FBDFF7D842D6DCC4AF"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Abstractions",
+                    "Path": "src/EventBus/FluentCMS.Infrastructure.EventBus/Abstractions",
+                    "FolderSummary": "The \u0022Abstractions\u0022 folder defines core interfaces for domain events, their publication, and subscription, enabling a decoupled event-driven architecture in the project.",
+                    "Files": [
+                      {
+                        "Name": "IEventSubscriber.cs",
+                        "Summary": {
+                          "Summary": "Generic event subscriber interface for handling domain events. Implement this interface to create event handlers that respond to specific event types.",
+                          "Exceptions": "OperationCanceledException",
+                          "Features": "Generic interface, asynchronous handling, cancellation support, thread safety considerations",
+                          "Roles": [
+                            "Event Handler",
+                            "Dependency Injection Registration"
+                          ],
+                          "Hash": "03E7F3AF8A5B254B090DEA82B5497C18DE4F01214F2B38CD28234A97DB632D69"
+                        }
+                      },
+                      {
+                        "Name": "IEvent.cs",
+                        "Summary": {
+                          "Summary": "Marker interface for all domain events",
+                          "Exceptions": "",
+                          "Features": "This interface defines two properties: OccurredAt (DateTimeOffset) and EventId (Guid). Both are read-only.",
+                          "Roles": [
+                            "Domain Events"
+                          ],
+                          "Hash": "17E7E53FD28EB31BF495679AEDD42523628E52D15E591896C26657F3C01DC2FA"
+                        }
+                      },
+                      {
+                        "Name": "IEventPublisher.cs",
+                        "Summary": {
+                          "Summary": "Event publisher interface for publishing domain events",
+                          "Exceptions": "None",
+                          "Features": "Asynchronous event publishing",
+                          "Roles": [
+                            "Domain event publisher"
+                          ],
+                          "Hash": "94D568E9947B5C68F8662FF74C1E58EA49F20ECB99536B7CDA6BAEC883414132"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Name": "Common",
+            "Path": "src/Common",
+            "FolderSummary": "The \u0022Common\u0022 folder serves as a centralized repository for shared utilities, base classes, and infrastructure components within the FluentCMS project, including the FluentCMS.Infrastructure.Common subfolder that likely provides common service implementations or abstractions for the application\u0027s core functionality.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Common",
+                "Path": "src/Common/FluentCMS.Infrastructure.Common",
+                "FolderSummary": "This folder in the FluentCMS foundational project provides shared infrastructure utilities, such as base entity classes (Entity and AuditableEntity), a user context interface (IUserContext), and global using declarations for common namespaces.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.Common.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Common",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project"
+                      ],
+                      "Hash": "2C82DAE7A6492E5DC0D99B6B5A5D1C89A4702B892F71757981E46302949D6115"
+                    }
+                  },
+                  {
+                    "Name": "IUserContext.cs",
+                    "Summary": {
+                      "Summary": "Interface for user context in FluentCMS.",
+                      "Exceptions": "",
+                      "Features": "",
+                      "Roles": [],
+                      "Hash": "0092FC796DB4BE70B689F983DCCD1711371DA439C07E9D7F9CCFCB73A969B674"
+                    }
+                  },
+                  {
+                    "Name": "Entity.cs",
+                    "Summary": {
+                      "Summary": "The Entity class and interface define a base entity with an Id property. The interface IEntity has a Key attribute on the Id property, and the Entity class implements this interface with a virtual Id property that defaults to a new Guid. This setup allows for a common base entity in the FluentCMS infrastructure, facilitating consistent entity handling across the application.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "024708C22B5A08D0AD0CDB3B0893A1F31C2089CA9CF600DB7143FADC753B2D81"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "The file contains a global using directive for the System.ComponentModel.DataAnnotations namespace. This directive will make the namespace available globally across all files in the project, eliminating the need for individual using directives in each file.",
+                      "Exceptions": "None",
+                      "Features": "global using directive",
+                      "Roles": [
+                        "global"
+                      ],
+                      "Hash": "A711FA1DCA70D4457591D9E8F07B57815067CAD9143B75FC1A27EEFC67807D83"
+                    }
+                  },
+                  {
+                    "Name": "AuditableEntity.cs",
+                    "Summary": {
+                      "Summary": "AuditableEntity.cs contains an interface IAuditableEntity and an abstract class AuditableEntity. The interface extends IEntity and defines properties with concurrency checks and nullable fields. The abstract class implements the interface and provides virtual properties for each property in the interface. The namespace is FluentCMS.Infrastructure.",
+                      "Exceptions": "none",
+                      "Features": "none",
+                      "Roles": [
+                        "none"
+                      ],
+                      "Hash": "106651FBC41C3FB5DAE95D91A194302E2E92806114A272082DA98318FA9775A3"
+                    }
+                  }
+                ],
+                "Directories": []
+              }
+            ]
+          },
+          {
+            "Name": "Providers",
+            "Path": "src/Providers",
+            "FolderSummary": "The Providers folder encapsulates implementations and abstractions for infrastructural services and data access layers in the FluentCMS project, including Entity Framework-based repositories.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Providers",
+                "Path": "src/Providers/FluentCMS.Infrastructure.Providers",
+                "FolderSummary": "The FluentCMS.Infrastructure.Providers folder handles the discovery, caching, management, and configuration of provider modules, including dynamic loading from DLLs, feature management, and ensuring thread-safe access to active providers by area.",
+                "Files": [
+                  {
+                    "Name": "ProviderModuleCatalogCache.cs",
+                    "Summary": {
+                      "Summary": "ProviderModuleCatalogCache manages a catalog of provider modules, using concurrent dictionaries for thread-safe operations. It validates modules for duplicates and proper properties, registers them by area and type, and provides methods for retrieval and lookup.",
+                      "Exceptions": "duplicateModulesFoundInValidateModulesMethod",
+                      "Features": "concurrentDictionary",
+                      "Roles": [
+                        "ProviderModuleCatalogCache"
+                      ],
+                      "Hash": "3932464FE2DE4CE69A64CDB581E4BC6568A8F1B5D1E5895F67BBDF0B2C96EFFF"
+                    }
+                  },
+                  {
+                    "Name": "ProviderFeatureBuilder.cs",
+                    "Summary": {
+                      "Summary": "The ProviderFeatureBuilder class is a sealed class within the FluentCMS.Infrastructure.Providers namespace. It is designed to hold an IServiceCollection instance, which is used for dependency injection configuration. The class has a public property named \u0027Services\u0027 of type IServiceCollection and an internal constructor that initializes this property with an IServiceCollection instance passed as a parameter.",
+                      "Exceptions": "None",
+                      "Features": "The class is sealed, preventing inheritance. It provides a public property for accessing the IServiceCollection instance and an internal constructor for initialization.",
+                      "Roles": [
+                        "Dependency Injection Configuration",
+                        "Provider Feature Management"
+                      ],
+                      "Hash": "D301066C7E6D6E8A52D7AC8774992870E82B56092EF6F27B899E2F08AB170E38"
+                    }
+                  },
+                  {
+                    "Name": "ProviderManager.cs",
+                    "Summary": {
+                      "Summary": "ProviderManager class implements IProviderManager interface with two methods: GetProviderModule and GetActiveByArea. The class has a private async method Initialize which processes provider data from the repository, checks for multiple active providers in the same area, and initializes the providerCatalogCache. The GetProviderModule method returns a provider module from the providerModuleCatalogCache based on area and type name. The constructor takes three parameters: providerCatalogCache, providerModuleCatalogCache, and IProviderRepository. The Initialize method throws exceptions if a provider module is not found or if there are multiple active providers in the same area.",
+                      "Exceptions": "ProviderManager class implements IProviderManager interface with two methods: GetProviderModule and GetActiveByArea. The class has a private async method Initialize which processes provider data from the repository, checks for multiple active providers in the same area, and initializes the providerCatalogCache. The GetProviderModule method returns a provider module from the providerModuleCatalogCache based on area and type name. The constructor takes three parameters: providerCatalogCache, providerModuleCatalogCache, and IProviderRepository. The Initialize method throws exceptions if a provider module is not found or if there are multiple active providers in the same area.",
+                      "Features": "ProviderManager class implements IProviderManager interface with two methods: GetProviderModule and GetActiveByArea. The class has a private async method Initialize which processes provider data from the repository, checks for multiple active providers in the same area, and initializes the providerCatalogCache. The GetProviderModule method returns a provider module from the providerModuleCatalogCache based on area and type name. The constructor takes three parameters: providerCatalogCache, providerModuleCatalogCache, and IProviderRepository. The Initialize method throws exceptions if a provider module is not found or if there are multiple active providers in the same area.",
+                      "Roles": [
+                        "ProviderManager class implements IProviderManager interface with two methods: GetProviderModule and GetActiveByArea. The class has a private async method Initialize which processes provider data from the repository, checks for multiple active providers in the same area, and initializes the providerCatalogCache. The GetProviderModule method returns a provider module from the providerModuleCatalogCache based on area and type name. The constructor takes three parameters: providerCatalogCache, providerModuleCatalogCache, and IProviderRepository. The Initialize method throws exceptions if a provider module is not found or if there are multiple active providers in the same area."
+                      ],
+                      "Hash": "BE0F8DD0125C92A42EC5FC47E420A28AEC2BFFF603A4B8353626C11A5F1485E8"
+                    }
+                  },
+                  {
+                    "Name": "ProviderDiscovery.cs",
+                    "Summary": {
+                      "Summary": "The ProviderDiscovery class scans the executable directory for DLLs matching specified prefixes, loads them, and discovers provider modules by inspecting their types. It processes assemblies in parallel, ensuring thread safety and robust error handling.",
+                      "Exceptions": "The code handles exceptions, but if IgnoreExceptions is false, it rethrows. The executable path is determined, and if it\u0027s null, an InvalidOperationException is thrown. The method uses a ConcurrentBag for thread-safe collection in parallel processing.",
+                      "Features": "The code uses LINQ for filtering DLLs, Parallel.ForEach for processing in parallel, and ConcurrentBag for thread-safe collection. It handles ReflectionTypeLoadException to extract valid types.",
+                      "Roles": [
+                        "The ProviderDiscovery class is responsible for discovering provider modules by scanning DLLs in the executable directory.",
+                        "The GetProviderModules method returns a list of IProviderModule instances by loading and inspecting assemblies.",
+                        "The method filters DLLs based on prefixes and processes them in parallel to improve performance.",
+                        "The code ensures thread safety when adding provider modules to the collection.",
+                        "The method handles exceptions during assembly loading and type extraction, providing flexibility based on the IgnoreExceptions flag.",
+                        "The code uses Assembly.LoadFrom to load assemblies, which allows dynamic loading of DLLs.",
+                        "The method checks if types are classes, non-abstract, and implement IProviderModule before creating instances.",
+                        "The code uses a ConcurrentBag to safely collect provider modules across multiple threads.",
+                        "The method returns a copy of the provider modules list to prevent external modification.",
+                        "The code includes a try-catch block around the type processing to handle exceptions gracefully."
+                      ],
+                      "Hash": "B46914C3CDC56C104C784258DDEA1172CEE1AE0B392E9285520F1C94310710DC"
+                    }
+                  },
+                  {
+                    "Name": "ProviderCatalogCache.cs",
+                    "Summary": {
+                      "Summary": "The ProviderCatalogCache class provides thread-safe caching for provider catalogs. It manages multiple catalogs by key and area, supports initialization, reloading, and clearing of the cache. The class ensures thread safety using locks and concurrent dictionaries.",
+                      "Exceptions": "The class throws InvalidOperationException in scenarios such as adding catalogs after initialization or having multiple active providers for the same area.",
+                      "Features": "Thread-safe caching using ConcurrentDictionary and lock, area-based and key-based catalog lookups, initialization and reloading mechanisms, and active catalog tracking.",
+                      "Roles": [
+                        "Caching",
+                        "Thread Safety",
+                        "Provider Management"
+                      ],
+                      "Hash": "2466C5901049451CDA699638FBB112F57A8DEE18DEDE99C0090192DBA73B34EA"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "This file defines global using directives for a C# project, importing namespaces related to FluentCMS infrastructure, Microsoft extensions, and system libraries to avoid repetitive using statements across the codebase.",
+                      "Exceptions": "No unexpected elements; it consists solely of standard global using declarations.",
+                      "Features": "Exports global using statements for various namespaces including infrastructure providers, repositories, configuration, dependency injection, and common system types.",
+                      "Roles": [
+                        "Configuration"
+                      ],
+                      "Hash": "9C5995DDBFA470E5653C6F9A31FA1F0DE199D32710F52D9AD7E12388AA22C71E"
+                    }
+                  },
+                  {
+                    "Name": "ProviderDiscoveryOptions.cs",
+                    "Summary": {
+                      "Summary": "This is a summary of the ProviderDiscoveryOptions class. It includes properties for enabling logging, specifying assembly prefixes to scan, and ignoring exceptions during the discovery process. The class is part of the FluentCMS.Infrastructure.Providers namespace.",
+                      "Exceptions": "false",
+                      "Features": "true",
+                      "Roles": [
+                        "admin",
+                        "user"
+                      ],
+                      "Hash": "2AA0B1B0BCFE5A359472590315FC1D67EB9983FE6E828DAC0C8F4126923C0DD8"
+                    }
+                  },
+                  {
+                    "Name": "ProviderFeatureBuilderExtensions.cs",
+                    "Summary": {
+                      "Summary": "The ProviderFeatureBuilderExtensions class provides extension methods for configuring provider features in a .NET application. It includes methods for adding providers, using configuration, and preparing the provider catalog cache.",
+                      "Exceptions": "The code handles exceptions during provider module configuration and instance creation, throwing detailed exceptions when exceptions are not ignored.",
+                      "Features": "Key features include provider discovery, configuration, caching, and dependency injection setup for providers.",
+                      "Roles": [
+                        "Developer",
+                        "System Administrator"
+                      ],
+                      "Hash": "82834E912AC174E675970DBAC63B1A5B736865BF33AC87939EC1424E1BF7542F"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Providers.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Providers",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project"
+                      ],
+                      "Hash": "E454903A8CE50D0A9B5459E4CA25BD44DF8D8ED89753606DA52403E9E200D5FB"
+                    }
+                  },
+                  {
+                    "Name": "ProviderCatalog.cs",
+                    "Summary": {
+                      "Summary": "ProviderCatalog class in FluentCMS Infrastructure.Providers namespace. It\u0027s a public class with a constructor that takes IProviderModule, string, bool, and object (optional). The class has four public read-only properties: Name, Active, Module, and Options, initialized from the constructor parameters.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "35B02F328840D4DE32FB5081931330181B490F97BF9457058F5CB087C096AB60"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Repositories",
+                    "Path": "src/Providers/FluentCMS.Infrastructure.Providers/Repositories",
+                    "FolderSummary": "The Repositories folder serves as an abstraction layer for data access in the project, containing provider implementations (like Provider.cs), abstract definitions, and configurations to manage interactions with data sources.",
+                    "Files": [
+                      {
+                        "Name": "Provider.cs",
+                        "Summary": {
+                          "Summary": "The Provider class represents a provider instance stored in the database. It includes properties for the provider\u0027s name, display name, area, module type, active status, and options. The class also includes validation attributes for each property to ensure data integrity.",
+                          "Exceptions": "none",
+                          "Features": "none",
+                          "Roles": [
+                            "none"
+                          ],
+                          "Hash": "A62A6CDBCD2877BECD9976F7F96D66A0C6EEE008C422F65AA267695C54B1CDFE"
+                        }
+                      }
+                    ],
+                    "Directories": [
+                      {
+                        "Name": "Abstractions",
+                        "Path": "src/Providers/FluentCMS.Infrastructure.Providers/Repositories/Abstractions",
+                        "FolderSummary": "The \u0022Abstractions\u0022 folder holds interface definitions, such as IProviderRepository, to establish contracts for services and repositories, enabling dependency injection and improved modularity in the project.",
+                        "Files": [
+                          {
+                            "Name": "IProviderRepository.cs",
+                            "Summary": {
+                              "Summary": "The IProviderRepository interface is defined in the FluentCMS.Infrastructure.Providers.Repositories.Abstractions namespace. It extends the IRepository\u003CProvider\u003E interface, indicating it is part of a repository pattern for Provider entities. The interface itself contains no additional methods or properties beyond the inheritance from IRepository.",
+                              "Exceptions": "None",
+                              "Features": "None",
+                              "Roles": [
+                                "None"
+                              ],
+                              "Hash": "24D34A62DF4256EE4C6E8A284B088D803D655FEE7436ABFACC206BED3BBB7E95"
+                            }
+                          }
+                        ],
+                        "Directories": []
+                      },
+                      {
+                        "Name": "Configuration",
+                        "Path": "src/Providers/FluentCMS.Infrastructure.Providers/Repositories/Configuration",
+                        "FolderSummary": "This folder handles configuration management by providing interfaces and implementations for read-only provider repositories and generic in-memory query specifications used to access and query configuration data.",
+                        "Files": [
+                          {
+                            "Name": "ConfigurationReadOnlyProviderRepository.cs",
+                            "Summary": {
+                              "Summary": "This class provides read-only access to provider configurations from an in-memory repository. It retrieves provider data from the configuration file and uses the provider manager to get module details. The repository does not support any write operations, as indicated by the NotImplementedException in all write-related methods. The internal ProviderAreaConfiguration class is used to deserialize provider area configurations from the configuration file. The GetAll method processes each provider area and module, serializing options if necessary. The Query method returns an in-memory query specification based on the retrieved providers.",
+                              "Exceptions": "NotImplementedException",
+                              "Features": "In-memory repository",
+                              "Roles": [
+                                "IProviderRepository"
+                              ],
+                              "Hash": "28DD40B51123CDEF47546D969257CBBCD2C49CA208765F9B25D9F28BFAE27A17"
+                            }
+                          },
+                          {
+                            "Name": "InMemoryQuerySpecification.cs",
+                            "Summary": {
+                              "Summary": "InMemoryQuerySpecification\u003CT\u003E is a class that provides in-memory query operations for a collection of T objects. It supports various query methods like filtering, ordering, grouping, and pagination, with cancellation token support and async enumeration capabilities.",
+                              "Exceptions": "No exceptionsthrown in the provided code.",
+                              "Features": "The code defines a class InMemoryQuerySpecification\u003CT\u003E that implements IQuerySpecification\u003CT\u003E. It provides methods for querying in-memory collections, including Any, Count, AsAsyncEnumerable, Distinct, First, Single, Skip, Take, OrderBy, ThenBy, GroupBy, Select, ToArray, ToList, and ToPagedResult. The class uses a constructor that takes an IEnumerable\u003CT\u003E and stores it internally. The methods handle cancellation tokens and compile expressions. The GetAsyncEnumerable method uses yield return and Task.Yield for async enumeration with cancellation support.",
+                              "Roles": [
+                                "Class",
+                                "Generic",
+                                "Implements IQuerySpecification\u003CT\u003E",
+                                "Uses IEnumerable\u003CT\u003E as parameter and storage"
+                              ],
+                              "Hash": "1A1E3679CEECD3ABBD3F68252ACA9B2AF27D9BCAF7752EB82FA769FE1803B817"
+                            }
+                          }
+                        ],
+                        "Directories": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Providers.Abstractions",
+                "Path": "src/Providers/FluentCMS.Infrastructure.Providers.Abstractions",
+                "FolderSummary": "The FluentCMS Infrastructure Providers Abstractions folder defines fundamental interfaces and base classes, such as IProvider and ProviderModuleBase, to establish contracts and shared functionality for provider modules within the system\u0027s provider architecture.",
+                "Files": [
+                  {
+                    "Name": "IProviderModule.cs",
+                    "Summary": {
+                      "Summary": "The code defines interfaces for provider modules in a .NET application. The base interface IProviderModule provides common properties and a method for configuring services. The generic interfaces IProviderModule\u003CTProvider, TOptions\u003E and IProviderModule\u003CTProvider\u003E allow for strongly-typed implementations with constraints on the provider and options types. These interfaces facilitate the creation of provider modules with specific types and configurations.",
+                      "Exceptions": "The code file defines two interfaces: IProviderModule and two generic versions of it. The base interface IProviderModule has properties like Area, DisplayName, ProviderType, OptionsType, InterfaceType, and a ConfigureServices method. The generic interfaces IProviderModule\u003CTProvider, TOptions\u003E and IProviderModule\u003CTProvider\u003E inherit from IProviderModule and add type parameters with constraints. The constraints specify that TProvider must be a class implementing IProvider, and TOptions must be a class with a parameterless constructor.",
+                      "Features": "The code defines a base interface for provider modules with properties and a configuration method. It also provides two generic interfaces for strongly-typed provider modules with specific type constraints. The generic interfaces allow for more specific implementations by constraining the provider and options types.",
+                      "Roles": [
+                        "Developer",
+                        "Architect",
+                        "Maintainer"
+                      ],
+                      "Hash": "BA5EC816488EE208CB46E6B67C4B1563C7E5F6F0D145A1E781DB21B2B0696051"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Providers.Abstractions.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Providers.Abstractions, targeting .NET 10.0 with implicit usings enabled and nullable reference types enabled. It references Microsoft.Extensions.DependencyInjection.Abstractions version 10.0.2.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "FC04C4B5AE787E8C3250DF3CDC84F4DDECB3C2EB7E6E83D3D5B149C3767B817F"
+                    }
+                  },
+                  {
+                    "Name": "IProvider.cs",
+                    "Summary": {
+                      "Summary": "Base marker interface for all providers. All provider implementations must implement this interface.",
+                      "Exceptions": "",
+                      "Features": "This interface serves as a base marker for all provider implementations in the FluentCMS infrastructure. It is located in the FluentCMS.Infrastructure.Providers.Abstractions namespace.",
+                      "Roles": [
+                        "Base marker interface"
+                      ],
+                      "Hash": "7B8D0585F3DDC7FDE0E89BD00CDAD68463475E2BAF14D45B679B794224F7FDCC"
+                    }
+                  },
+                  {
+                    "Name": "ProviderModuleBase.cs",
+                    "Summary": {
+                      "Summary": "ProviderModuleBase.cs",
+                      "Exceptions": "ProviderModuleBase.cs",
+                      "Features": "ProviderModuleBase.cs",
+                      "Roles": [
+                        "ProviderModuleBase\u003CTProvider, TOptions\u003E",
+                        "ProviderModuleBase\u003CTProvider\u003E"
+                      ],
+                      "Hash": "C0815D03769D080A254EBFDDC0225C3D15C15E0561776E75273B2858DDF4771A"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Providers.Repositories.EntityFramework",
+                "Path": "src/Providers/FluentCMS.Infrastructure.Providers.Repositories.EntityFramework",
+                "FolderSummary": "This folder implements the Entity Framework-based repository and database infrastructure for managing provider-related data in FluentCMS, including schema validation, seeding, context handling, and feature extensions.",
+                "Files": [
+                  {
+                    "Name": "ProviderSchemaValidator.cs",
+                    "Summary": {
+                      "Summary": "ProviderSchemaValidator class in FluentCMS Infrastructure.Providers.Repositories.EntityFramework namespace",
+                      "Exceptions": "None",
+                      "Features": "Inherits from BaseSchemaValidator\u003CProviderDbContext\u003E, overrides Priority property with value 1",
+                      "Roles": [
+                        "ProviderSchemaValidator"
+                      ],
+                      "Hash": "8209FB9BFD2CC50C33CAC6FB2FA685FFDE9DD69AAF9FD7188B8A842243D9D67C"
+                    }
+                  },
+                  {
+                    "Name": "ProviderDbContext.cs",
+                    "Summary": {
+                      "Summary": "Entity Framework database context for the provider system. It includes a DbSet for Provider entities and configures the Provider entity in the OnModelCreating method. The Provider entity has properties like Id (primary key), Name, DisplayName, Area, ModuleType, Options (supporting JSON with Unicode), and IsActive (default false). The model configuration enforces required fields with specific length constraints and sets default values where applicable.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "D54D1870788C92E076D30F3F457F9538142C9217ED1E95D3EC48E4E789712BCB"
+                    }
+                  },
+                  {
+                    "Name": "ProviderDataSeeder.cs",
+                    "Summary": {
+                      "Summary": "ProviderDataSeeder class in FluentCMS infrastructure for seeding provider data using Entity Framework.",
+                      "Exceptions": "InvalidOperationException if provider module not found.",
+                      "Features": "Uses dependency injection, async operations, and Entity Framework\u0027s AddRangeAsync and SaveChangesAsync.",
+                      "Roles": [
+                        "ProviderDataSeeder",
+                        "BaseDataSeeder\u003CProviderDbContext\u003E"
+                      ],
+                      "Hash": "5EB767CF852A7E70A64B351879BE00CCB3D1AC64358B3B84B614EA816F3CF0B1"
+                    }
+                  },
+                  {
+                    "Name": "IProviderDatabaseMarker.cs",
+                    "Summary": {
+                      "Summary": "IProviderDatabaseMarker is an empty interface that inherits from IDatabaseArea.",
+                      "Exceptions": "",
+                      "Features": "",
+                      "Roles": [
+                        "interface"
+                      ],
+                      "Hash": "8B3813BB876C15C2C25C4AAD7EFC3B5D5941EA4947747ECF3DE551C748D20385"
+                    }
+                  },
+                  {
+                    "Name": "ProviderRepository.cs",
+                    "Summary": {
+                      "Summary": "ProviderRepository class in the FluentCMS infrastructure providers repository namespace, implementing IProviderRepository and inheriting from Repository\u003CProvider, ProviderDbContext\u003E with a constructor that injects ProviderDbContext.",
+                      "Exceptions": "None",
+                      "Features": "Implements IProviderRepository, inherits from Repository\u003CProvider, ProviderDbContext\u003E, constructor injects ProviderDbContext.",
+                      "Roles": [
+                        "Repository",
+                        "Entity Framework Provider Repository"
+                      ],
+                      "Hash": "E8B0861B51ACBFB030EF04942DCA45169A3BFEC560C19BB8E79F55F6BEECB409"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "Global Usings Directives",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "F7BD14B5061145750B9A21B19E8403854939255E5CB82ED648AAB05C74F6920E"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Providers.Repositories.EntityFramework.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Providers.Repositories.EntityFramework",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project"
+                      ],
+                      "Hash": "54D65E6CB645D1947B0F833E05E09A2228899C15F1ED87CF15E33AF59369CD49"
+                    }
+                  },
+                  {
+                    "Name": "ProviderFeatureBuilderExtensions.cs",
+                    "Summary": {
+                      "Summary": "The \u0060ProviderFeatureBuilderExtensions\u0060 class provides an extension method to configure Entity Framework integration in a FluentCMS provider feature builder. It adds necessary repositories, data seeder, schema validator, database context, and repository implementation services.",
+                      "Exceptions": "The JSON output must be valid. The provided code analysis is correct and does not contain any exceptions. The JSON structure is valid and accurately represents the code\u0027s components and their relationships.",
+                      "Features": "The code defines a static class \u0060ProviderFeatureBuilderExtensions\u0060 within the \u0060FluentCMS.Infrastructure.Providers.Repositories.EntityFramework\u0060 namespace. The class contains a single extension method \u0060UseEntityFramework\u0060 that configures Entity Framework services for a \u0060ProviderFeatureBuilder\u0060 instance. The method adds several scoped services, including \u0060ConfigurationReadOnlyProviderRepository\u0060, \u0060ProviderDataSeeder\u0060, \u0060ProviderSchemaValidator\u0060, \u0060ProviderDbContext\u0060, and \u0060IProviderRepository\u0060 (implemented by \u0060ProviderRepository\u0060). The method returns the modified \u0060ProviderFeatureBuilder\u0060.",
+                      "Roles": [
+                        "Developer",
+                        "Analyst"
+                      ],
+                      "Hash": "E8E53C8EF6EFB02FE32708056121FAA74E4ED3686ACB2B921AB1FCCF3897E74F"
+                    }
+                  }
+                ],
+                "Directories": []
+              }
+            ]
+          },
+          {
+            "Name": "Configuration",
+            "Path": "src/Configuration",
+            "FolderSummary": "The Configuration folder contains infrastructure-level settings and Entity Framework configurations for the FluentCMS project, supporting different database providers such as SQL Server and SQLite.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework.SqlServer",
+                "Path": "src/Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework.SqlServer",
+                "FolderSummary": "This folder is responsible for providing configuration and extension methods to integrate Entity Framework ORM with SQL Server as the database provider in the FluentCMS project infrastructure.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework.SqlServer.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS Infrastructure Configuration Entity Framework with SQL Server",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "ProjectFile",
+                        "Csproj"
+                      ],
+                      "Hash": "4E33ED76983284D0FF2BDA250BD1264973D09905A18707B87FF04C954A5A964B"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "Extension methods for adding database configuration with SQL Server",
+                      "Exceptions": "",
+                      "Features": "This class provides extension methods to add SQL Server database configuration to an IConfigurationBuilder. It uses a temporary configuration manager to create a DbContextOptionsBuilder for SQL Server, then adds the database configuration provider. The method allows specifying a connection string and an optional reload interval for automatic updates.",
+                      "Roles": [],
+                      "Hash": "2A665CFB7B8CBC907BD96027A191C116FA79DFBD723243AB7464DEDBF6785F51"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework",
+                "Path": "src/Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework",
+                "FolderSummary": "This folder handles the Entity Framework-based infrastructure for managing and retrieving configuration data in FluentCMS, including database contexts, repositories, seeding, validation, and providers.",
+                "Files": [
+                  {
+                    "Name": "InMemoryCache.cs",
+                    "Summary": {
+                      "Summary": "Simple in-memory cache for configuration values",
+                      "Exceptions": "None",
+                      "Features": "ConcurrentDictionary, DateTime, TimeSpan, required keyword",
+                      "Roles": [
+                        "internal"
+                      ],
+                      "Hash": "7462A09FA39652656FB5467E26B91348322E85923E7851B5E8E37E6ACA753D08"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationDataSeeder.cs",
+                    "Summary": {
+                      "Summary": "The ConfigurationDataSeeder class is responsible for seeding configuration data into the database. It inherits from BaseDataSeeder and has the lowest priority (0) to ensure it runs last. The class processes registered configuration sections, checks for existing entries, and seeds new ones by converting sections to JSON and storing them in the database. It includes error handling for missing or empty sections and logs actions accordingly. The class uses a recursive method to convert configuration sections into dictionaries for serialization.",
+                      "Exceptions": "None",
+                      "Features": "ConfigurationDataSeeder class",
+                      "Roles": [
+                        "ConfigurationDataSeeder"
+                      ],
+                      "Hash": "ED39387F08C78045406A3E99E08D46FE8768EEF632765B6F135B9C5410AD9378"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework.csproj",
+                    "Summary": {
+                      "Summary": "none",
+                      "Exceptions": "none",
+                      "Features": "none",
+                      "Roles": [
+                        "none"
+                      ],
+                      "Hash": "A9522B74628928EC605909C76C812345DF60FC6AD313166BE17DB16CD588CB9B"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationDbContext.cs",
+                    "Summary": {
+                      "Summary": "DbContext for storing configuration data in FluentCMS infrastructure using Entity Framework. It defines a DbSet for ConfigurationEntity and configures the entity model with required fields, unique index on Section, and other constraints. The class inherits from DbContext and uses a constructor with DbContextOptions parameter. The OnModelCreating method overrides base method to configure the entity properties including Id as primary key, Section, Value, Type, CreatedAt, and Version with specific attributes like IsRequired, MaxLength, and IsUnique index. The ConfigurationEntity class is referenced but not defined in this file, indicating it\u0027s part of the same namespace or assembly. The model configuration ensures data integrity through unique constraints and required fields. The DbContext is part of the FluentCMS infrastructure, specifically under the Configuration.EntityFramework namespace, suggesting it\u0027s used for managing configuration settings in the application\u0027s backend. The code follows standard Entity Framework practices for DbContext and model configuration, with proper use of attributes and methods to define the database schema. The unique index on Section helps prevent duplicate configuration sections, which is important for maintaining data consistency in configuration management. The required fields ensure that critical data like Value and Type are always present when creating or updating configuration entities. The CreatedAt and Version fields likely track when the configuration was created and its version for audit and update purposes. The DbContext class is designed to be used in a dependency injection container, as is common in ASP.NET Core applications, to provide the configuration data layer. The code is well-structured and follows best practices for Entity Framework Core DbContext implementation, including proper model configuration and error handling through the base class methods. The absence of any exception handling in the provided code snippet suggests that it\u0027s a simplified version, and in a production environment, additional error handling might be necessary. The code is part of a larger system, and the ConfigurationEntity class would define the actual properties and relationships for the configuration data, which is not shown here. The unique index on Section implies that each configuration section must have a unique name, which is a common requirement for configuration systems to avoid conflicts. The required fields for Value and Type ensure that these critical pieces of information are always provided, which is essential for the application to function correctly with the configuration data. The CreatedAt field likely uses a DateTime type to record when the configuration was created, which is useful for auditing and tracking changes over time. The Version field might be used to manage different versions of the configuration, allowing for updates and rollbacks if needed. The DbContext class is designed to be flexible and reusable, as it inherits from DbContext and allows for customization through the DbContextOptions parameter. This makes it easy to integrate with different database providers or configurations in the application. The model configuration in OnModelCreating is a key part of the DbContext, as it defines how the entity maps to the database schema, including primary keys, indexes, and property constraints. This ensures that the database schema is correctly set up to support the application\u0027s configuration needs. The code is well-documented with XML comments, which is a good practice for maintainability and understanding the purpose of each part of the code. The comments describe the class, its constructor, and the purpose of the DbSet and OnModelCreating method, which helps other developers understand the code more easily. The use of the base class method in OnModelCreating ensures that any base class configurations are preserved, which is important for maintaining the integrity of the DbContext\u0027s behavior. Overall, the code is a well-written and properly structured part of the FluentCMS infrastructure, providing a solid foundation for managing configuration data in the application.",
+                      "Exceptions": "None",
+                      "Features": "ConfigurationDbContext class",
+                      "Roles": [
+                        "Infrastructure",
+                        "Configuration",
+                        "EntityFramework"
+                      ],
+                      "Hash": "C3BA2B5DD49D067708CF97A3A242986A41655A42CCF043473CED145CA744D7E1"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationRepository.cs",
+                    "Summary": {
+                      "Summary": "The ConfigurationRepository class is part of the FluentCMS Infrastructure Configuration Entity Framework module. It is designed to handle configuration entities using the Repository pattern and the Entity Framework DbContext.",
+                      "Exceptions": "No exceptions were thrown during the analysis of the code file.",
+                      "Features": "The code file contains a class named ConfigurationRepository that inherits from a Repository class and implements the IConfigurationRepository interface. The class has a constructor that takes a ConfigurationDbContext parameter.",
+                      "Roles": [
+                        "analyst",
+                        "developer",
+                        "tester"
+                      ],
+                      "Hash": "772A75DC699FA83FFD09D915E6355918AC1213A5F175FC6AEFB632FDF4C9F56F"
+                    }
+                  },
+                  {
+                    "Name": "DatabaseConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "This class contains extension methods for adding database configuration to the configuration system in a .NET application. It supports automatic discovery of database options and provides a way to manage configuration settings through a database context. The methods facilitate the setup of database configuration providers, service registration, and temporary configuration management for development and testing scenarios.",
+                      "Exceptions": "None",
+                      "Features": "The DatabaseConfigurationExtensions class provides extension methods for configuring database settings in a .NET application. It includes methods to add database configuration to the configuration builder, register services for database configuration, and create a temporary configuration manager for quick setup.",
+                      "Roles": [
+                        "Developer",
+                        "Database Administrator"
+                      ],
+                      "Hash": "8538C7E2087C25E20FBF257E593A88DAFB70762801F208D0E7FC7B84D3E67BF4"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "None",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "092B9E616C4965D1EAD64E1FB31D194475CA9C675D5B4A65FC4A3F3CD1B7F55B"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationSchemaValidator.cs",
+                    "Summary": {
+                      "Summary": "The configuration schema validator has the lowest priority to ensure it runs last",
+                      "Exceptions": "ConfigurationSchemaValidator.cs",
+                      "Features": "internal class ConfigurationSchemaValidator(ConfigurationDbContext dbContext, ILogger\u003CConfigurationSchemaValidator\u003E logger) : BaseSchemaValidator\u003CConfigurationDbContext\u003E(dbContext, logger)",
+                      "Roles": [
+                        "internal",
+                        "class",
+                        "ConfigurationSchemaValidator",
+                        "ConfigurationDbContext",
+                        "ILogger\u003CConfigurationSchemaValidator\u003E",
+                        "BaseSchemaValidator\u003CConfigurationDbContext\u003E",
+                        "override",
+                        "int",
+                        "Priority",
+                        "0"
+                      ],
+                      "Hash": "05E3B961E87D151D7EC66BB7EBB5F18020B80BBDB4130F9A861E20E2A008CE53"
+                    }
+                  },
+                  {
+                    "Name": "DatabaseConfigurationProvider.cs",
+                    "Summary": {
+                      "Summary": "This class implements a custom configuration provider that loads configuration settings from a database using Entity Framework Core, including in-memory caching, automatic periodic reloading, and conversion of nested JSON configurations into flat key-value pairs for use in .NET configuration systems.",
+                      "Exceptions": "The file handles JsonException by skipping configurations with invalid JSON parsing, and ignores all exceptions during reload operations to prevent failures.",
+                      "Features": "Database-backed configuration loading, in-memory caching using a custom InMemoryCache, automatic periodic reloading with a timer, flattening of JSON objects and arrays into dotted notation keys, change detection for triggering reload events, and proper disposal of resources including the timer.",
+                      "Roles": [
+                        "ConfigurationProvider"
+                      ],
+                      "Hash": "4EE8D427E76518663F44FC9FEA0BDF9FE67CEFA2867E731F395F30DBFCD63DB4"
+                    }
+                  },
+                  {
+                    "Name": "DatabaseConfigurationSource.cs",
+                    "Summary": {
+                      "Summary": "Configuration source for database-backed configurations. It uses a DbContextOptions to connect to the database and a ReloadInterval to determine how often the configuration should be refreshed from the database. The Build method creates a DatabaseConfigurationProvider instance with the provided options and interval.",
+                      "Exceptions": "The DbOptions property is set to null, which may cause issues when building the DatabaseConfigurationProvider. This should be initialized with a valid DbContextOptions instance.",
+                      "Features": "The DatabaseConfigurationSource implements IConfigurationSource and provides a way to build a DatabaseConfigurationProvider for database-backed configurations. The ReloadInterval property allows for periodic updates of the configuration from the database.",
+                      "Roles": [
+                        "IConfigurationSource"
+                      ],
+                      "Hash": "A9D97851C25ED3AAE94C0C8F42B1A4607ED1CEF36C83B65C999754B9314E88A1"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite",
+                "Path": "src/Configuration/FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite",
+                "FolderSummary": "This folder handles the infrastructure-level configuration and extensions for integrating SQLite as a database provider using Entity Framework in the FluentCMS project.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Configuration.EntityFramework.Sqlite.csproj. Contains references to other projects and configuration settings.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "7292A94E83CE9D6B62745F19AAEDC059CE6486D11B210BB6D6FCA341F6E4383E"
+                    }
+                  },
+                  {
+                    "Name": "ConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "This file defines extension methods for the configuration builder to integrate SQLite as a database provider for application configuration using Entity Framework.",
+                      "Exceptions": "Throws an InvalidOperationException if the specified connection string is not found in the temporary configuration.",
+                      "Features": "Provides an extension method AddSqliteConfiguration that sets up SQLite database for configuration storage, retrieves connection string, and adds database configuration with optional reload interval.",
+                      "Roles": [
+                        "Extension",
+                        "Configurator"
+                      ],
+                      "Hash": "1F6E6CD45CA6610AA7CEEBA5EFC2F9F5703B7769D9C64FB67A9C17BEB1A2700C"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Configuration",
+                "Path": "src/Configuration/FluentCMS.Infrastructure.Configuration",
+                "FolderSummary": "The FluentCMS.Infrastructure.Configuration folder is responsible for managing system-level configuration infrastructure, including database setup, configuration entities, extensions for database operations, and abstractions for configurable components within the FluentCMS project.",
+                "Files": [
+                  {
+                    "Name": "ConfigurationEntity.cs",
+                    "Summary": {
+                      "Summary": "Represents a configuration entry stored in the database. The class includes properties for the configuration section, JSON serialized value, and the full type name of the configuration object. It inherits from AuditableEntity, which likely includes audit fields like CreatedBy and UpdatedBy. The properties are all required strings, ensuring that each configuration entry has a section name, a JSON value, and a type name for deserialization purposes. This design allows the system to store and retrieve configuration settings dynamically by their section and type, facilitating flexible configuration management in the application.",
+                      "Exceptions": "ConfigurationEntity.cs",
+                      "Features": "ConfigurationEntity.cs",
+                      "Roles": [
+                        "ConfigurationEntity.cs"
+                      ],
+                      "Hash": "0E963A7C57F533DA349D3C41F4BDA52CF2730A101E87F0B2163B573A26276595"
+                    }
+                  },
+                  {
+                    "Name": "DatabaseConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "Static extension methods for adding database-backed configuration options to ASP.NET Core applications, integrating with the Options pattern and DatabaseConfigurationRegistry for section registration and binding.",
+                      "Exceptions": "ArgumentNullException.ThrowIfNull",
+                      "Features": "thread-safe registry creation, multi-tenant scenarios, database-backed configuration options",
+                      "Roles": [
+                        "developer",
+                        "architect"
+                      ],
+                      "Hash": "A377BF8E3CBC122B8011C881193D86953B2A616D9949F9D2F647F722EFC818DF"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Configuration.csproj",
+                    "Summary": {
+                      "Summary": "None",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "71055E15B1BEAA2F8432A6CC5F353AE25500FDFBC0E5AE76B4AD66BC5E33644C"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "This C# file defines global using directives, making specified namespaces available throughout the project without explicit imports in each file.",
+                      "Exceptions": "None; the file contains only standard global using statements for namespaces related to dependency injection, configuration, options, and collections.",
+                      "Features": "Provides global access to namespaces including FluentCMS custom repositories, Microsoft extensions for configuration and dependency injection, options handling, and concurrent collections.",
+                      "Roles": [
+                        "Configuration",
+                        "Utility"
+                      ],
+                      "Hash": "9AD833044262FC90232FC8261BE5733B36C5F1FC05EFD04CDF730CA5F412DD75"
+                    }
+                  },
+                  {
+                    "Name": "DatabaseConfigurationRegistry.cs",
+                    "Summary": {
+                      "Summary": "DatabaseConfigurationRegistry is a singleton class that tracks configuration sections stored in the database. It ensures section names follow best practices and validates options types for the Options pattern. The registry is thread-safe and provides defensive copies of registered sections.",
+                      "Exceptions": "invalid_section_name_length",
+                      "Features": "concurrent_dictionary",
+                      "Roles": [
+                        "configuration_registry",
+                        "options_validator"
+                      ],
+                      "Hash": "1B0CE469834D678E0A0C10DBCA813BEC10C8646327EEE26FBBA073349BF3B3EA"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Abstractions",
+                    "Path": "src/Configuration/FluentCMS.Infrastructure.Configuration/Abstractions",
+                    "FolderSummary": "The Abstractions folder contains interface definitions for configuration repositories and database markers, facilitating dependency injection and abstraction of configuration-related data access in the project.",
+                    "Files": [
+                      {
+                        "Name": "IConfigurationRepository.cs",
+                        "Summary": {
+                          "Summary": "IConfigurationRepository interface in FluentCMS.Infrastructure.Configuration.Abstractions namespace",
+                          "Exceptions": "None",
+                          "Features": "Inherits from IRepository\u003CConfigurationEntity\u003E",
+                          "Roles": [
+                            "ConfigurationRepository"
+                          ],
+                          "Hash": "C82FB26E097C02C1F68FFFD905E87CCF4C87FF24E9D08DE29287E404EE8BB807"
+                        }
+                      },
+                      {
+                        "Name": "IConfigurationDatabaseMarker.cs",
+                        "Summary": {
+                          "Summary": "This interface is a marker interface for configuration database area. It inherits from IDatabaseArea interface.",
+                          "Exceptions": "None",
+                          "Features": "None",
+                          "Roles": [
+                            "None"
+                          ],
+                          "Hash": "B72526F877D2F42A7CA35B69A6739FA14FD5F1C8D128762B269337898B5F9EAA"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Name": "Repositories",
+            "Path": "src/Repositories",
+            "FolderSummary": "This folder houses the data access layer implementations for FluentCMS, providing Entity Framework-based repositories for database operations across different SQL providers like SQLite and SQL Server.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite",
+                "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite",
+                "FolderSummary": "This folder handles SQLite database configuration and extensions for Entity Framework repositories within the FluentCMS infrastructure.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Repositories.EntityFramework.Sqlite",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "ProjectFile"
+                      ],
+                      "Hash": "EB470FD122C5EF59813EEE283B1C80E5EA8BAB067BE679546EF216EFAF213DC4"
+                    }
+                  },
+                  {
+                    "Name": "SqliteConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "Extension methods for configuring SQLite database provider",
+                      "Exceptions": "DatabaseConfigurationBuilder",
+                      "Features": "SqliteDbContextOptionsBuilder",
+                      "Roles": [
+                        "fluent",
+                        "configuration",
+                        "sqlite"
+                      ],
+                      "Hash": "185DBB2D2C665F313F2C846E718391CB50409DC87894DFABA165533ABB4D607F"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Repositories",
+                "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories",
+                "FolderSummary": "This folder handles the infrastructure layer\u0027s repository components in the FluentCMS project, encompassing data access abstractions, database initialization conditions, pagination utilities, seeding options, schema validation, and domain events for entity operations.",
+                "Files": [
+                  {
+                    "Name": "ConfigurationCondition.cs",
+                    "Summary": {
+                      "Summary": "Condition that checks configuration settings to determine if seeding should execute. Compares a configuration value against an expected value using case-insensitive comparison.",
+                      "Exceptions": "OperationCanceledException",
+                      "Features": "ConfigurationCondition",
+                      "Roles": [
+                        "IDbInitializationCondition"
+                      ],
+                      "Hash": "42C0169BE686A75689DD6CCCA305182667CE21220F9736F9611F041BE02937DC"
+                    }
+                  },
+                  {
+                    "Name": "CompositeCondition.cs",
+                    "Summary": {
+                      "Summary": "Condition that combines multiple conditions with AND/OR logic. This allows for complex conditional logic by composing simpler conditions.",
+                      "Exceptions": "ArgumentNullException when conditions is null",
+                      "Features": "Parallel execution of conditions, error handling with detailed condition names, empty condition returns true",
+                      "Roles": [
+                        "IDbInitializationCondition"
+                      ],
+                      "Hash": "82959B440869CD6D0409650274B7F829213B4A50B862DE4497C99E3ED3ADDFA7"
+                    }
+                  },
+                  {
+                    "Name": "EnvironmentCondition.cs",
+                    "Summary": {
+                      "Summary": "Condition that checks the current hosting environment against a custom predicate. This allows for flexible environment-based seeding logic, such as seeding specific data only in Development, Staging, or Production environments.",
+                      "Exceptions": "ArgumentException, Exception",
+                      "Features": "EnvironmentCondition, IDbInitializationCondition",
+                      "Roles": [
+                        "constructor",
+                        "property",
+                        "method"
+                      ],
+                      "Hash": "D0FA5480AC0C5999DEB074F9DE5E9FDC5A44C81DF1AA2B25BA503EE50F1F0F78"
+                    }
+                  },
+                  {
+                    "Name": "PagedResult.cs",
+                    "Summary": {
+                      "Summary": "The PagedResult class implements pagination result wrapper functionality. It provides properties for items, total count, current page, and page size. It also includes computed properties for total pages, next page availability, and previous page availability. The class is generic and implements the IPagedResult interface. It uses C# 9.0 init properties and Math.Ceiling for calculations. The class is part of the FluentCMS.Infrastructure.Repositories namespace.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Developer",
+                        "Analyst"
+                      ],
+                      "Hash": "99D55AC96BF5E108D158BA37F46B81E6EDED07E1271214408D7ADBEA1F802640"
+                    }
+                  },
+                  {
+                    "Name": "DataSeedingOptions.cs",
+                    "Summary": {
+                      "Summary": "Configuration options for the database seeding process",
+                      "Exceptions": "ignore",
+                      "Features": "seed",
+                      "Roles": [
+                        "admin",
+                        "user"
+                      ],
+                      "Hash": "45FDA85E507B99360D0AA8325628BFFE21891A7FA53B1B816AE66B64F830FD61"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "This file contains global using directives for FluentCMS infrastructure, Microsoft.Extensions, and System.Linq.Expressions.",
+                      "Exceptions": ",",
+                      "Features": ",",
+                      "Roles": [
+                        "Developer"
+                      ],
+                      "Hash": "D3C37C66CF42CC95A6C04B4FB4728B6DC68B807892BA6F64CF990FB1D2C8A317"
+                    }
+                  },
+                  {
+                    "Name": "SchemaValidationOptions.cs",
+                    "Summary": {
+                      "Summary": "SchemaValidationOptions class defines configuration options for the schema validation process in FluentCMS. It includes a list of conditions that must be met before seeding and a flag to ignore exceptions during seeding.",
+                      "Exceptions": "The class has two public properties: Conditions (List\u003CIDbInitializationCondition\u003E) and IgnoreExceptions (bool). The Conditions property is initialized as an empty list, and IgnoreExceptions defaults to false.",
+                      "Features": "Key features include the ability to specify pre-seeding conditions and control exception handling during the seeding process.",
+                      "Roles": [
+                        "Infrastructure Repositories"
+                      ],
+                      "Hash": "987EA41FFE3989C7DB92BEF6B9D1133587639C7770F0FBC45BCE99B2C9D1C47A"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Repositories.csproj",
+                    "Summary": {
+                      "Summary": "None",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "EE48C3D0F81474A6548562C928D45A6741F64643360669B034D4730A0E7232E0"
+                    }
+                  },
+                  {
+                    "Name": "DomainEvents.cs",
+                    "Summary": {
+                      "Summary": "This code defines abstract and concrete classes for repository entity events, enabling the tracking of create, update, and delete operations with associated entities.",
+                      "Exceptions": "None",
+                      "Features": "RepositoryEntityEvent is an abstract class that serves as a base for events related to repository operations. It inherits from EventBase and includes an Entity property to hold the entity involved in the event. The EventType property is abstract, requiring subclasses to implement it with specific event types (Create, Update, Delete). The three concrete classes (RepositoryEntityCreatedEvent, Updated, Deleted) each override EventType to return their respective event types, providing clear event identification for repository operations.",
+                      "Roles": [
+                        "RepositoryEntityEvent: Abstract base class for repository entity events, containing the entity and requiring EventType implementation.",
+                        "RepositoryEntityCreatedEvent: Implements EventType as \u0027Create\u0027 for entity creation events.",
+                        "RepositoryEntityUpdatedEvent: Implements EventType as \u0027Update\u0027 for entity update events.",
+                        "RepositoryEntityDeletedEvent: Implements EventType as \u0027Delete\u0027 for entity deletion events."
+                      ],
+                      "Hash": "206A61A7A32583F2D6C2D468654FAEA5AD53246513877C81FBDBBA8D7102917A"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Abstractions",
+                    "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories/Abstractions",
+                    "FolderSummary": "The Abstractions folder houses interfaces and abstractions for database management, data access layers, validation, repository patterns, query specifications, pagination, and initialization conditions in the project\u0027s architecture.",
+                    "Files": [
+                      {
+                        "Name": "ISchemaValidator.cs",
+                        "Summary": {
+                          "Summary": "Defines a contract for validating and creating database schemas. Schema validators run before data seeders to ensure required database structures exist.",
+                          "Exceptions": "ISchemaValidator.cs",
+                          "Features": "ISchemaValidator.cs",
+                          "Roles": [
+                            "ISchemaValidator"
+                          ],
+                          "Hash": "F09F757D47224AC2ED78A4AB44403680C6BD9EE7F46DA184675388E6238903A6"
+                        }
+                      },
+                      {
+                        "Name": "IDbInitializationCondition.cs",
+                        "Summary": {
+                          "Summary": "This interface defines a contract for evaluating whether database seeding or initialization operations should proceed based on runtime conditions, such as environment or configuration.",
+                          "Exceptions": "The file is a standard C# interface definition with no unexpected elements, errors, or unconventional inclusions.",
+                          "Features": "Exports the IDbInitializationCondition interface with a Name property for logging and a ShouldExecute method that asynchronously determines if seeding should execute, supporting cancellation tokens.",
+                          "Roles": [
+                            "Interface",
+                            "Abstraction"
+                          ],
+                          "Hash": "05F81BF5AD48BA0A1225B5D034E2D834715FC7E7692224B7C38B61D0849B28F1"
+                        }
+                      },
+                      {
+                        "Name": "IDefaultDatabaseArea.cs",
+                        "Summary": {
+                          "Summary": "The IDefaultDatabaseArea interface is defined in the FluentCMS.Infrastructure.Repositories.Abstractions namespace. It inherits from the IDatabaseArea interface and does not contain any additional members or methods.",
+                          "Exceptions": "",
+                          "Features": "",
+                          "Roles": [
+                            "interface"
+                          ],
+                          "Hash": "2C6B94EBD7ED4D9F1964FA6863B45BC461BD56A3DC6D91FDA3ACAB02B97B05FF"
+                        }
+                      },
+                      {
+                        "Name": "IRepository.cs",
+                        "Summary": {
+                          "Summary": "The \u0060IRepository\u003CTEntity\u003E\u0060 interface defines a standard set of asynchronous CRUD operations and a fluent query API for the Repository Pattern. It ensures that any implementing class adheres to a consistent interface for data manipulation and querying, promoting code reusability and maintainability.",
+                          "Exceptions": "The provided code file does not contain any exceptions or error handling mechanisms. The interface defines standard CRUD operations and a query specification method without any explicit error handling.",
+                          "Features": "The interface provides a fluent API for querying through the \u0060Query\u0060 method, which returns an \u0060IQuerySpecification\u003CTEntity\u003E\u0060 object. This allows for building complex queries in a fluent manner. The interface also includes standard CRUD operations (Add, AddRange, Update, Remove, RemoveRange) with support for asynchronous operations via \u0060CancellationToken\u0060.",
+                          "Roles": [
+                            "Data Access Layer (DAL) Interface",
+                            "Repository Pattern Implementation"
+                          ],
+                          "Hash": "AE6A663FF478CEF5B3A768AC0F6E61558E7E122E2CD2253FA40CF7C2AED9A91B"
+                        }
+                      },
+                      {
+                        "Name": "IDatabaseArea.cs",
+                        "Summary": {
+                          "Summary": "Marker interface to define database scope/context for repository configuration. Implementations group entities to specific databases.",
+                          "Exceptions": "",
+                          "Features": "This is a marker interface - no methods required. Specific database scopes inherit from this interface to create type-safe database groupings.",
+                          "Roles": [
+                            "Repository Configuration",
+                            "Database Grouping"
+                          ],
+                          "Hash": "C50817A70BFEEFD1F0A3DA7FECC6F3068C75A0C57448FA30FFCF821675AE2E88"
+                        }
+                      },
+                      {
+                        "Name": "IDataSeeder.cs",
+                        "Summary": {
+                          "Summary": "Defines a contract for seeding data into a database. Implementations should provide priority-based execution and existence checking.",
+                          "Exceptions": "None",
+                          "Features": "None",
+                          "Roles": [
+                            "None"
+                          ],
+                          "Hash": "149A85A35853306E1949949E95DD137A4E0DADC5CC3A8FD3A1125D8CC049D8D9"
+                        }
+                      },
+                      {
+                        "Name": "IPagedResult.cs",
+                        "Summary": {
+                          "Summary": "Pagination result wrapper",
+                          "Exceptions": "",
+                          "Features": "",
+                          "Roles": [
+                            "Pagination",
+                            "Result Wrapper"
+                          ],
+                          "Hash": "5D6A1CBEA7ADBB8E58B31C94A7A3EA9A9473633B51FDB36AC37A388E3861F59D"
+                        }
+                      },
+                      {
+                        "Name": "IQuerySpecification.cs",
+                        "Summary": {
+                          "Summary": "The IQuerySpecification interface defines a comprehensive fluent API for building and executing queries on entities in a repository, supporting operations like filtering, projection, ordering, aggregation, and pagination.",
+                          "Exceptions": "The interface returns IQuerySpecification\u003CTEntity\u003E for ordering methods (OrderBy, etc.), but comments indicate it should return IRepositoryOrderedQuery\u003CT\u003E for proper constraints, suggesting a potential refactoring or documentation mismatch.",
+                          "Features": "Features include LINQ-style filtering with Where, projection with Select, Distinct; ordering with OrderBy, OrderByDescending, ThenBy, ThenByDescending; terminal operations such as SingleOrDefault, Single, ToList, ToArray, AsAsyncEnumerable; aggregates like Count and Any; operations requiring ordering like Skip and Take; pagination with ToPagedResult; and First/Last operations.",
+                          "Roles": [
+                            "Interface",
+                            "Abstraction"
+                          ],
+                          "Hash": "F4D0EE219662F8DCB9B24839FDC480E57AE7ECFF2483FE527622CC48698B21AD"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework.SqlServer",
+                "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework.SqlServer",
+                "FolderSummary": "This folder is responsible for configuring and setting up SQL Server database connections and Entity Framework integration within the FluentCMS project\u0027s infrastructure repositories layer.",
+                "Files": [
+                  {
+                    "Name": "SqlServerDatabaseConfiguration.cs",
+                    "Summary": {
+                      "Summary": "Extension methods for configuring SQL Server database provider",
+                      "Exceptions": "Throws ArgumentNullException if builder is null, ArgumentException if connectionString is null or whitespace",
+                      "Features": "Configures SQL Server database provider using a connection string and optional SQL Server-specific options",
+                      "Roles": [
+                        "Database Configuration",
+                        "Entity Framework"
+                      ],
+                      "Hash": "D79196759ADB3935D795EA3E2705E30DC2BA449A6822938321818A4A54632986"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework.SqlServer.csproj",
+                    "Summary": {
+                      "Summary": "None",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "403B7635A79D518DD098D804097D39E4F62161E3A0FA19E47BB1D19B10BEFCA3"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework",
+                "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework",
+                "FolderSummary": "This folder implements Entity Framework-based repositories for FluentCMS, handling CRUD operations, query building, entity tracking, data seeding, schema validation, interceptors, configurations, and exception management.",
+                "Files": [
+                  {
+                    "Name": "Repository.cs",
+                    "Summary": {
+                      "Summary": "Repository class for Entity Framework operations",
+                      "Exceptions": "ArgumentNullException.ThrowIfNull",
+                      "Features": "CRUD operations, async methods, cancellation tokens, query specification",
+                      "Roles": [
+                        "CRUD operations",
+                        "Entity tracking management",
+                        "Query building"
+                      ],
+                      "Hash": "3EBE19F03E873A84F90E316059D0BF33D9BA521A03543679D2EFE6BC86B7B3EA"
+                    }
+                  },
+                  {
+                    "Name": "BaseSchemaValidator.cs",
+                    "Summary": {
+                      "Summary": "BaseSchemaValidator.cs is an abstract class that implements ISchemaValidator. It provides a base implementation for creating and validating database schemas using Entity Framework. The class is generic, taking a TDbContext type constrained to DbContext. It includes methods for creating the schema via a generated SQL script and validating the existence of tables. Logging is handled via an injected ILogger instance. The class is abstract and requires derived classes to implement the Priority property and can override the CreateSchema and ValidateSchema methods if needed. The methods are asynchronous and use CancellationToken for cancellation support.",
+                      "Exceptions": "BaseSchemaValidator.cs",
+                      "Features": "BaseSchemaValidator.cs",
+                      "Roles": [
+                        "BaseSchemaValidator.cs",
+                        "BaseSchemaValidator.cs"
+                      ],
+                      "Hash": "9830489469C692B8162CEA4089C882CA488EFA1E82A425E9C32043A8132D3E46"
+                    }
+                  },
+                  {
+                    "Name": "BaseDataSeeder.cs",
+                    "Summary": {
+                      "Summary": "BaseDataSeeder.cs is an abstract class that serves as a base for seeding data in a database context. It is generic with a type parameter TDbContext which must be a DbContext. The class implements the IDataSeeder interface and provides a logger for logging operations. The class includes abstract and virtual methods for checking if seeding is needed and for performing the actual seeding. The Priority property is abstract, requiring derived classes to implement it. The ShouldSeed method checks for existing data and returns whether seeding is necessary. The SeedData method is abstract and must be implemented by derived classes to seed data.",
+                      "Exceptions": "None",
+                      "Features": "The class includes logging via ILogger, abstract and virtual methods, generic type constraints, and a base class for data seeding operations.",
+                      "Roles": [
+                        "Base class for data seeding",
+                        "Abstract class with generic type parameter",
+                        "Implements IDataSeeder interface",
+                        "Includes logging functionality",
+                        "Provides methods for checking data existence and seeding"
+                      ],
+                      "Hash": "0860222318AFC7102F0F27EB992586D0C31D963FD5BB82CC8EFD39C5D4C8A0F8"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "This file defines global using statements for various namespaces from FluentCMS and Microsoft libraries, allowing them to be used globally in the project\u0027s C# code without explicit using directives in each file.",
+                      "Exceptions": "This file appears standard for a C# project with global usings; no unexpected elements are present.",
+                      "Features": "Exports global access to namespaces for event bus abstractions, repository abstractions, Entity Framework interceptors, Entity Framework core, diagnostics, dependency injection, hosting, logging, LINQ expressions, diagnostics, and text encoding.",
+                      "Roles": [
+                        "Configuration"
+                      ],
+                      "Hash": "88E576359AAB227AF1D962E86E2FF4F9643D4CF637C072BEEF753C298D7DDAE0"
+                    }
+                  },
+                  {
+                    "Name": "DbContextExtensions.cs",
+                    "Summary": {
+                      "Summary": "This code provides methods to check if any tables in the database have data or exist, using reflection to interact with Entity Framework\u0027s DbContext. It\u0027s part of a FluentCMS infrastructure repository.",
+                      "Exceptions": "The code contains a method that catches exceptions and ignores them, which might mask errors. However, the user requested analysis of the code file and output valid JSON, so this is not included in the JSON output.",
+                      "Features": "The code includes reflection usage to dynamically call DbSet.AnyAsync, which is a common pattern in Entity Framework Core for dynamic queries. However, this approach can be error-prone and less efficient than using LINQ queries directly.",
+                      "Roles": [
+                        "Database administrator",
+                        "Developer",
+                        "Database analyst"
+                      ],
+                      "Hash": "5452E4DD24EA28217361B5AB183A0FD1E451EB501B84AF0DD2D47CFD96DAEBF1"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Repositories.EntityFramework.csproj",
+                    "Summary": {
+                      "Summary": "none",
+                      "Exceptions": "none",
+                      "Features": "none",
+                      "Roles": [
+                        "none"
+                      ],
+                      "Hash": "19F0F7EA30A13902691275E1752ADA75DDC5F48D3FA40CF2F13788BF8381BB98"
+                    }
+                  },
+                  {
+                    "Name": "QuerySpecification.cs",
+                    "Summary": {
+                      "Summary": "QuerySpecification class for building and executing entity queries using Entity Framework. Implements IQuerySpecification\u003CTEntity\u003E with LINQ-style operations, ordering, pagination, and terminal methods.",
+                      "Exceptions": "Throws InvalidOperationException for Skip, Take, and First/Last operations without prior ordering.",
+                      "Features": "Supports filtering, ordering, pagination, and asynchronous execution with cancellation tokens.",
+                      "Roles": [
+                        "Repository Pattern",
+                        "Specification Pattern",
+                        "Entity Framework Query Builder"
+                      ],
+                      "Hash": "E32AEEF55AA4CE48A85BFE4BBFD9D231B8CAD60C0FF51909DD06D38EC53173B1"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Interceptors",
+                    "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework/Interceptors",
+                    "FolderSummary": "The \u0022Interceptors\u0022 folder contains Entity Framework Core save changes interceptors that handle domain events and auditable entity updates during database operations.",
+                    "Files": [
+                      {
+                        "Name": "DomainEventSaveChangesInterceptor.cs",
+                        "Summary": {
+                          "Summary": "This file defines an Entity Framework save changes interceptor that publishes repository-level events (created, updated, deleted) based on entity state changes during save operations.",
+                          "Exceptions": "The interceptor publishes infrastructure events rather than actual domain events from the entities themselves, despite the class comment referring to \u0027domain events\u0027; it also synchronously waits on async event publishing in the sync version.",
+                          "Features": "Intercepting EF save changes synchronously and asynchronously; publishing events for added, modified, or deleted entities using an IEventPublisher.",
+                          "Roles": [
+                            "Interceptor"
+                          ],
+                          "Hash": "C51285B435D8BF9E4ED3E34496DECA0F3422955DD8EE38C588EC080F4EFDA5F2"
+                        }
+                      },
+                      {
+                        "Name": "AuditableEntitySaveChangesInterceptor.cs",
+                        "Summary": {
+                          "Summary": "This file implements an Entity Framework save changes interceptor that automatically populates audit fields (CreatedAt, CreatedBy, UpdatedAt, UpdatedBy, Version) for entities implementing IAuditableEntity during save operations.",
+                          "Exceptions": "None; the code behaves as expected for an audit interceptor.",
+                          "Features": "Implements ISaveChangesInterceptor interface with synchronous and asynchronous SavingChanges methods; updates audit fields based on entity state (Added or Modified); retrieves current user from IUserContext service if available.",
+                          "Roles": [
+                            "Interceptor"
+                          ],
+                          "Hash": "5C260AEC63D5FA29350926E417165F0FD57158E9B0FA9F622218DD87884E0F8F"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  },
+                  {
+                    "Name": "Configuration",
+                    "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework/Configuration",
+                    "FolderSummary": "The Configuration folder is responsible for encapsulating classes and extensions that configure database connections, Entity Framework DbContext options, data seeding, schema validation, service registrations, and related hosted services to set up and manage the application\u0027s database infrastructure.",
+                    "Files": [
+                      {
+                        "Name": "ServiceCollectionExtensions.cs",
+                        "Summary": {
+                          "Summary": "Extension methods for IServiceCollection to configure the DatabaseManager in FluentCMS Infrastructure Repositories Entity Framework.",
+                          "Exceptions": "Throws InvalidOperationException when DatabaseManager hasn\u0027t been configured.",
+                          "Features": "Includes methods for configuring database providers, connection strings, data seeding, schema validation, and registering DbContexts with interceptors.",
+                          "Roles": [
+                            "DatabaseManagerConfiguration",
+                            "DbContextRegistration",
+                            "DataSeeding",
+                            "SchemaValidation",
+                            "ServiceRegistration"
+                          ],
+                          "Hash": "CE2F9044040A7730E058608F6F2942FB9CB41537531532F5E845E17A9C2F9834"
+                        }
+                      },
+                      {
+                        "Name": "DatabaseConfiguration.cs",
+                        "Summary": {
+                          "Summary": "Represents the configuration for a database connection including provider and connection settings",
+                          "Exceptions": "ArgumentNullException.ThrowIfNull(builder) in Apply method",
+                          "Features": "Configuration of DbContextOptions, Data seeding, Schema validation, Connection string, Marker type, Service descriptors",
+                          "Roles": [
+                            "Database connection configuration",
+                            "Entity Framework DbContext options configuration",
+                            "Data seeding setup",
+                            "Schema validation setup"
+                          ],
+                          "Hash": "17EF37C19ACA43FC0677814D33DEF014BC84DBB458B9F0436BED4DC6FA081717"
+                        }
+                      },
+                      {
+                        "Name": "SchemaValidatorService.cs",
+                        "Summary": {
+                          "Summary": "This file defines and implements a service for validating and initializing database schemas across multiple configured databases in the FluentCMS infrastructure, executing schema validators in global priority order while respecting conditional checks and exception handling options.",
+                          "Exceptions": "The service includes a catch block that allows ignoring exceptions based on configuration options, which might be unexpected as it could silently fail validation in some cases.",
+                          "Features": "Implements ISchemaValidatorService interface; supports running multiple schema validators across databases; orders validators by priority; conditions validation on custom conditions; handles exceptions with configurable ignore settings; provides detailed logging; uses dependency injection for validators;",
+                          "Roles": [
+                            "Service",
+                            "Validator"
+                          ],
+                          "Hash": "C7C5AD1B3D86FFF8B0EF3E6B9850F8234BEF30439562D9B31498F6FF847736B3"
+                        }
+                      },
+                      {
+                        "Name": "DatabaseManagerOptions.cs",
+                        "Summary": {
+                          "Summary": "Options class for configuring database connections for multiple DbContexts. Supports both default configuration and marker-based specific configurations.",
+                          "Exceptions": "InvalidOperationException: Thrown when GetDefaultConfiguration() is called without a default configuration being set.",
+                          "Features": "The class supports configuring a default database and specific databases for DbContexts marked with a marker interface. It uses a dictionary to store configurations keyed by marker type.",
+                          "Roles": [
+                            "DatabaseManagerOptions",
+                            "IServiceCollection"
+                          ],
+                          "Hash": "AC29D7A533660062D5B30F769B00FD63F76B3314FAD8F560E8E53F9BDF379B99"
+                        }
+                      },
+                      {
+                        "Name": "DataSeederService.cs",
+                        "Summary": {
+                          "Summary": "The DataSeederService class implements the IDataSeederService interface to seed the database with initial data. It uses dependency injection to access the service provider, database manager options, and logger. The service checks conditions for seeding, collects all registered seeders, sorts them by priority, and executes them in order. It handles exceptions and logs progress and errors appropriately.",
+                          "Exceptions": "The service catches exceptions during seeding. If the configuration\u0027s IgnoreExceptions flag is set, it logs the error but continues. Otherwise, it rethrows the exception.",
+                          "Features": "Key features include: global priority-based execution of seeders, condition-based skipping of seeders, handling of default configurations, and detailed logging of seeding activities.",
+                          "Roles": [
+                            "Database Initializer",
+                            "Data Seeder",
+                            "Dependency Injection Consumer"
+                          ],
+                          "Hash": "EB7057A3F37B2C1DC36693660150DFDD7FA8264ED2E0E2228A6B5465858693E4"
+                        }
+                      },
+                      {
+                        "Name": "DataInitializerHostedService.cs",
+                        "Summary": {
+                          "Summary": "Hosted service responsible for performing database schema validation and data seeding operations during application startup.",
+                          "Exceptions": "Throws an exception if any error occurs during initialization, preventing application startup.",
+                          "Features": "Includes schema validation and data seeding, with detailed logging for each step.",
+                          "Roles": [
+                            "IHostedService",
+                            "IServiceProvider",
+                            "ILogger"
+                          ],
+                          "Hash": "181D1538C1B2F754B30BAC4E23BA79DDF31E2F0837188BCC1F663E7CC872392E"
+                        }
+                      },
+                      {
+                        "Name": "DatabaseConfigurationBuilder.cs",
+                        "Summary": {
+                          "Summary": "Default implementation of IDatabaseConfigurationBuilder",
+                          "Exceptions": "",
+                          "Features": "This class is used to build the DatabaseConfiguration object and manage service descriptors for Entity Framework configuration in the FluentCMS project.",
+                          "Roles": [
+                            "Infrastructure.Repositories.EntityFramework.Configuration"
+                          ],
+                          "Hash": "996BD9BD3B40BDC6C257F1E95E368BA240C58D4781B1A6B50F162C8D05513967"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  },
+                  {
+                    "Name": "Exceptions",
+                    "Path": "src/Repositories/FluentCMS.Infrastructure.Repositories.EntityFramework/Exceptions",
+                    "FolderSummary": "This folder houses custom exception classes and codes, including specialized types for entity not found errors and enhanced exception handling with validation and source capture capabilities, to standardize error management across the project\u0027s infrastructure and repositories.",
+                    "Files": [
+                      {
+                        "Name": "ExceptionCodes.cs",
+                        "Summary": {
+                          "Summary": "ExceptionCodes.cs contains a class with a constant string for entity not found error.",
+                          "Exceptions": "EntityNotFound",
+                          "Features": "Single constant string defined in the ExceptionCodes class within the FluentCMS.Infrastructure.Repositories.EntityFramework.Exceptions namespace.",
+                          "Roles": [
+                            "Developer",
+                            "Maintainer"
+                          ],
+                          "Hash": "8CE3972E61173B926B9F9CED7E0EC1CBFC0A8A9905914570A8DCBDC5FDC8FE1E"
+                        }
+                      },
+                      {
+                        "Name": "EntityNotFoundException.cs",
+                        "Summary": {
+                          "Summary": "The EntityNotFoundException class is used to indicate that an entity was not found in the system. It inherits from EnhancedException and provides two constructors for different scenarios: one specifying the entity name and ID, and another specifying only the entity name. A generic version of the exception, EntityNotFoundException\u003CT\u003E, is also provided, which uses the type name of T as the entity name in the message.",
+                          "Exceptions": "EntityNotFoundException is thrown when an entity is not found in the system. The generic version EntityNotFoundException\u003CT\u003E is used when the entity type is known at compile time.",
+                          "Features": "The class includes two constructors: one that takes an entity name and ID, and another that takes only the entity name. The generic version simplifies usage by automatically using the type name of T as the entity name.",
+                          "Roles": [
+                            "Infrastructure",
+                            "Repositories",
+                            "Exceptions"
+                          ],
+                          "Hash": "5E30413E89AFAFFE8369E5F465E17125B338CDC73A51F91B8A4CD8D09225EC10"
+                        }
+                      },
+                      {
+                        "Name": "EnhancedException.cs",
+                        "Summary": {
+                          "Summary": "EnhancedException class for handling exceptions with enhanced information, including error codes, method context, and validation errors.",
+                          "Exceptions": "Exception",
+                          "Features": "EnhancedException provides detailed exception information including the type and method where the exception occurred, a list of error codes with descriptions, and a comprehensive string representation. It supports adding single or multiple errors and includes constructors for different scenarios.",
+                          "Roles": [
+                            "Exception Handling",
+                            "Validation Error Reporting",
+                            "Exception Source Capture"
+                          ],
+                          "Hash": "C4E933745E1E092A63A7169A3D84DBC170D925E9FB67AF847A7C97972ECD6344"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "Name": "Logging",
+            "Path": "src/Logging",
+            "FolderSummary": "Assistant: The user is asking for a concise 1-sentence summary of the folder\u0027s responsibility in the project. The folder is named \u0022Logging\u0022 and contains files and a subfolder \u0022FluentCMS.Infrastructure.Logging\u0022.\n\nI need to reason step by step. This seems like a project structure, possibly in a software project, maybe a CMS (Content Management System).\n\nThe name \u0022FluentCMS\u0022 suggests it\u0027s related to FluentCMS, an open-source CMS built with .NET.\n\nThe folder \u0022Logging\u0022 in \u0022FluentCMS.Infrastructure.Logging\u0022 is part of the infrastructure layer, handling logging.\n\nWhat does logging entail? Logging is the process of recording messages, events, or data during the execution of a program, often for debugging, monitoring, or auditing purposes.\n\nSo, the folder\u0027s responsibility is likely to provide logging infrastructure for the CMS.\n\nThe user specifies: \u0022Provide a concise 1-sentence summary of this folder\u0027s responsibility in the project.\u0022\n\nI need to make it concise and one sentence.\n\nKeep it economical, no yapping.\n\nResponse should be direct.This folder is responsible for providing the logging infrastructure and utilities within the FluentCMS project, enabling the recording and management of application events, errors, and operational insights for debugging and monitoring.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Logging",
+                "Path": "src/Logging/FluentCMS.Infrastructure.Logging",
+                "FolderSummary": "The FluentCMS.Infrastructure.Logging folder is responsible for providing infrastructure components and configurations for logging, including extensions for SQLite-based logger setup and factory initialization.",
+                "Files": [
+                  {
+                    "Name": "FluentCMS.Infrastructure.Logging.csproj",
+                    "Summary": {
+                      "Summary": "This .csproj file defines the FluentCMS.Infrastructure.Logging project as a .NET library targeting net10.0, with ImplicitUsings and Nullable enabled, and includes a reference to Serilog.AspNetCore for ASP.NET Core logging.",
+                      "Exceptions": "The .NET target framework net10.0 is not yet publicly released; the Serilog.AspNetCore version 10.0.0 may not correspond to real releases.",
+                      "Features": "Enables Serilog.AspNetCore for structured logging in ASP.NET Core applications.",
+                      "Roles": [
+                        "Library",
+                        "Infrastructure"
+                      ],
+                      "Hash": "916CE8C044FC699CBBF2437D5EFAEDA9CDEE05488268F55876D9BBF96E5C7968"
+                    }
+                  },
+                  {
+                    "Name": "SqliteConfigurationExtensions.cs",
+                    "Summary": {
+                      "Summary": "This code configures Serilog logging for a .NET application, setting minimum levels, overrides, and output sinks (console and file). It integrates with the host builder and returns an ILoggerFactory for dependency injection.",
+                      "Exceptions": "None",
+                      "Features": "The code defines a static class \u0060SqliteConfigurationExtensions\u0060 with a method \u0060InitLogFactory\u0060 that configures Serilog logging. It sets up a logger with minimum debug level, overrides Microsoft to warning, enriches from log context, and writes to console and a file with daily rolling. The method uses \u0060IHostBuilder\u0060 to integrate Serilog and returns an \u0060ILoggerFactory\u0060.",
+                      "Roles": [
+                        "LoggerConfiguration",
+                        "ILoggerFactorySetup"
+                      ],
+                      "Hash": "01A8319EE89E9E6F1C23D6B69B4F195D96926EB5F2A00789BBEBE0733C0BF7A5"
+                    }
+                  }
+                ],
+                "Directories": []
+              }
+            ]
+          },
+          {
+            "Name": "Plugins",
+            "Path": "src/Plugins",
+            "FolderSummary": "The Plugins folder in FluentCMS handles the infrastructure for implementing and managing extensible plugins, including abstractions and concrete components to support modular functionality within the content management system.",
+            "Files": [],
+            "Directories": [
+              {
+                "Name": "FluentCMS.Infrastructure.Plugins.Abstractions",
+                "Path": "src/Plugins/FluentCMS.Infrastructure.Plugins.Abstractions",
+                "FolderSummary": "This folder defines the abstract contracts, attributes, and interfaces (such as the IPluginStartup interface and PluginAttribute) that establish the foundational structure for plugins within the FluentCMS system.",
+                "Files": [
+                  {
+                    "Name": "PluginAttribute.cs",
+                    "Summary": {
+                      "Summary": "This file defines a custom attribute, PluginAttribute, which marks a class as a plugin startup class for automatic discovery and loading by the plugin system in FluentCMS.",
+                      "Exceptions": "The attribute is currently empty but includes comments about potential future extensions for metadata.",
+                      "Features": "Implements a sealed attribute class that inherits from System.Attribute, with AttributeUsage specifying it applies only to classes and not inherited.",
+                      "Roles": [
+                        "Attribute"
+                      ],
+                      "Hash": "1FD1AEA4334D5D218DC5ECFD4A626E6D5443CCABD4A32CC9C66EB0307418B1AF"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Plugins.Abstractions.csproj",
+                    "Summary": {
+                      "Summary": "Project file for FluentCMS.Infrastructure.Plugins.Abstractions, targeting .NET 10.0 with implicit usings enabled and nullable reference types enabled.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "Project File"
+                      ],
+                      "Hash": "8AC29D0288D2A0B3396437FFB0AE7150C18BE112EA1899D3C12C15A86B78D25E"
+                    }
+                  },
+                  {
+                    "Name": "IPluginStartup.cs",
+                    "Summary": {
+                      "Summary": "This C# file defines the IPluginStartup interface, which serves as the central abstraction for all plugins in the FluentCMS plugin system, requiring implementations to handle service configuration and application pipeline setup in an ASP.NET Core environment.",
+                      "Exceptions": "",
+                      "Features": "Provides virtual default implementations for properties like Name, Version, ConfigureServicesPriority, and ConfigurePriority; requires implementations of ConfigureServices and Configure methods to integrate plugin-specific services and middleware.",
+                      "Roles": [
+                        "Interface",
+                        "Plugin Contract"
+                      ],
+                      "Hash": "381EFE1A1F5C881E65CB8A27024C4E1FAC8A5A344B5C18F292A41A4B4C956A87"
+                    }
+                  }
+                ],
+                "Directories": []
+              },
+              {
+                "Name": "FluentCMS.Infrastructure.Plugins",
+                "Path": "src/Plugins/FluentCMS.Infrastructure.Plugins",
+                "FolderSummary": "The FluentCMS.Infrastructure.Plugins folder handles the core infrastructure for the plugin system in FluentCMS, encompassing discovery, loading, initialization, metadata management, and configuration options.",
+                "Files": [
+                  {
+                    "Name": "PluginMetadata.cs",
+                    "Summary": {
+                      "Summary": "PluginMetadata class and PluginStatus enum from FluentCMS.Infrastructure.Plugins namespace",
+                      "Exceptions": "None",
+                      "Features": "Class with properties and enum with status values",
+                      "Roles": [
+                        "PluginMetadata: Represents plugin metadata with properties like name, version, type, instance, status, and error message.",
+                        "PluginStatus: Enum defining possible plugin status states."
+                      ],
+                      "Hash": "64FA488AE2DA55498FB6D8459E4B52F96A46D6BD2B41119B0DE0384F0C62CC5B"
+                    }
+                  },
+                  {
+                    "Name": "PluginSystemExtensions.cs",
+                    "Summary": {
+                      "Summary": "The PluginSystemExtensions class provides methods to add and use the plugin system in a .NET application, configuring it via options and starting it during application startup.",
+                      "Exceptions": "ArgumentNullException.ThrowIfNull(services) and ArgumentNullException.ThrowIfNull(app) are used to validate parameters.",
+                      "Features": "Extension methods for IServiceCollection and IApplicationBuilder to integrate the plugin system.",
+                      "Roles": [
+                        "PluginDiscovery",
+                        "PluginInitializer",
+                        "PluginLoader"
+                      ],
+                      "Hash": "C95980A85CEF9DB035712CD44781EC2A5952C51CAC15CFD4C686C190FB83B095"
+                    }
+                  },
+                  {
+                    "Name": "NullArgumentException.cs",
+                    "Summary": {
+                      "Summary": "NullArgumentException class for handling null or empty argument exceptions in FluentCMS infrastructure plugins.",
+                      "Exceptions": "ArgumentException",
+                      "Features": "Static methods for null and empty argument checks with automatic parameter name capture via [CallerArgumentExpression].",
+                      "Roles": [
+                        "Infrastructure",
+                        "Plugins"
+                      ],
+                      "Hash": "33440C2E894A28C734B5CA94E98F87C47238E6A11E26D81431D0B17B31469288"
+                    }
+                  },
+                  {
+                    "Name": "PluginManager.cs",
+                    "Summary": {
+                      "Summary": "The PluginManager class implements the IPluginManager interface, managing the lifecycle of plugins in a .NET application. It handles plugin discovery, initialization, configuration, startup, and cleanup.",
+                      "Exceptions": "The class handles exceptions during plugin configuration and startup, with options to ignore errors or throw exceptions based on PluginSystemOptions.IgnoreErrors. It also manages cancellation tokens for timeout and cancellation scenarios.",
+                      "Features": "Key features include plugin discovery via IPluginDiscovery, initialization via IPluginInitializer, loading of plugin types, service configuration, application startup, and unloading of Application Library Components (ALCs) after startup.",
+                      "Roles": [
+                        "PluginDiscovery",
+                        "PluginInitializer",
+                        "PluginLoader",
+                        "Logger",
+                        "PluginSystemOptions"
+                      ],
+                      "Hash": "207A14CDBDC669A71C955BD0A6E010E1BA37B35A0FEA69A7059D837EF14E57A8"
+                    }
+                  },
+                  {
+                    "Name": "_GlobalUsings.cs",
+                    "Summary": {
+                      "Summary": "The _GlobalUsings.cs file contains a list of global using directives for the FluentCMS infrastructure plugins and Microsoft.AspNetCore and Microsoft.Extensions namespaces. The file includes global usings for FluentCMS.Infrastructure.Plugins.Abstractions, FluentCMS.Infrastructure.Plugins.Discovery, FluentCMS.Infrastructure.Plugins.Initializer, FluentCMS.Infrastructure.Plugins.Loader, Microsoft.AspNetCore.Builder, Microsoft.Extensions.Configuration, Microsoft.Extensions.DependencyInjection, Microsoft.Extensions.Logging, System.Diagnostics.CodeAnalysis, System.Reflection, System.Runtime.CompilerServices, and System.Runtime.Loader. The file does not contain any exceptions, features, hash, or roles as per the provided code snippet.",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "2FC962CECD10747779181A92DEBF51F884E64F416D228F6DEB8A54354D295236"
+                    }
+                  },
+                  {
+                    "Name": "FluentCMS.Infrastructure.Plugins.csproj",
+                    "Summary": {
+                      "Summary": "None",
+                      "Exceptions": "None",
+                      "Features": "None",
+                      "Roles": [
+                        "None"
+                      ],
+                      "Hash": "372BF434F8B0F36F2160A6B451180FCF56D0E359B223BC4EE66E04E5801ADDCD"
+                    }
+                  },
+                  {
+                    "Name": "PluginSystemOptions.cs",
+                    "Summary": {
+                      "Summary": "This file defines the PluginSystemOptions class, which provides configuration options for the FluentCMS plugin system to control plugin discovery, loading, and management.",
+                      "Exceptions": "The class includes an internal property for tracking registered AssemblyLoadContexts and requires an ILoggerFactory instance set to default!.",
+                      "Features": "Configurable assembly scan patterns, options to ignore loading errors, plugin load timeout, ALC unloading after startup, strict timeout handling, and an external logger factory.",
+                      "Roles": [
+                        "Configuration",
+                        "Options"
+                      ],
+                      "Hash": "9144C296577227E767F08B2ED86CB5083E554A755E366FEBA66B39654D575DA5"
+                    }
+                  }
+                ],
+                "Directories": [
+                  {
+                    "Name": "Loader",
+                    "Path": "src/Plugins/FluentCMS.Infrastructure.Plugins/Loader",
+                    "FolderSummary": "The Loader folder is responsible for managing plugin loading, discovery, and assembly management in the project\u0027s plugin system, utilizing classes like PluginLoader to scan for types marked with PluginAttribute and implement interfaces such as IPluginStartup, while handling exceptions and logging via a dedicated PluginLoadContext for collectible assemblies.",
+                    "Files": [
+                      {
+                        "Name": "PluginLoaderException.cs",
+                        "Summary": {
+                          "Summary": "Exception thrown when plugin loading fails.",
+                          "Exceptions": "PluginLoaderException",
+                          "Features": "This class inherits from the base Exception class and provides two constructors: one that takes a message string and another that takes a message and an inner exception. It is used to handle errors during plugin loading in the FluentCMS infrastructure.",
+                          "Roles": [
+                            "Exception",
+                            "PluginLoaderException"
+                          ],
+                          "Hash": "367771CDFCB6AF564504D729A6C6F385CAAA69198E900441C74EED0013B1CE67"
+                        }
+                      },
+                      {
+                        "Name": "PluginLoader.cs",
+                        "Summary": {
+                          "Summary": "PluginLoader.cs implements a plugin loading mechanism for FluentCMS. It defines an interface IPluginLoader and a class PluginLoader that loads plugin types from assembly files, using a PluginLoadContext to handle collectible assemblies and prevent memory leaks.",
+                          "Exceptions": "Handles OperationCanceledException and other exceptions, with logging and optional error ignoring via PluginSystemOptions.IgnoreErrors.",
+                          "Features": "Supports preloaded assemblies, collectible assembly loading, plugin type discovery via PluginAttribute and IPluginStartup interface, and error handling.",
+                          "Roles": [
+                            "Interface: IPluginLoader defines a method to load plugin types.",
+                            "Class: PluginLoader implements IPluginLoader, managing assembly loading and plugin discovery.",
+                            "Logger: Uses ILogger for debugging and error logging.",
+                            "Options: PluginSystemOptions provides configuration settings.",
+                            "Assembly Loading: Uses PluginLoadContext for collectible assemblies.",
+                            "Type Discovery: Scans assemblies for types marked with PluginAttribute and implementing IPluginStartup."
+                          ],
+                          "Hash": "55FC77E3D8FAD145AB526918140B4194C3DC17A67B430958D2D17C78C0F43A5F"
+                        }
+                      },
+                      {
+                        "Name": "PluginLoadContext.cs",
+                        "Summary": {
+                          "Summary": "Collectible ALC that resolves dependencies relative to the plugin\u2019s main assembly. Uses AssemblyDependencyResolver to locate dependencies and unmanaged DLLs. Overrides Load and LoadUnmanagedDll methods to load assemblies and unmanaged DLLs from resolved paths. Returns null or nint.Zero if resolution fails. Internal class within FluentCMS infrastructure.",
+                          "Exceptions": "None",
+                          "Features": "Collectible AssemblyLoadContext",
+                          "Roles": [
+                            "PluginLoader",
+                            "DependencyResolver"
+                          ],
+                          "Hash": "B9163F4BB25A08794474D631F365BF0F87295FD4C33B6AABAFDB6151BFB6C4BB"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  },
+                  {
+                    "Name": "Initializer",
+                    "Path": "src/Plugins/FluentCMS.Infrastructure.Plugins/Initializer",
+                    "FolderSummary": "The Initializer folder is responsible for managing the initialization of plugins in the system, including error handling, logging, configuration-based behavior, exception management, and providing plugin metadata.",
+                    "Files": [
+                      {
+                        "Name": "PluginInitializerException.cs",
+                        "Summary": {
+                          "Summary": "PluginInitializerException is a custom exception class in the FluentCMS.Infrastructure.Plugins.Initializer namespace. It inherits from the base Exception class and provides two constructors: one that takes a message string and another that takes both a message and an inner exception. This allows for both simple exception creation and chaining of exceptions with additional context.",
+                          "Exceptions": "This class is designed to handle exceptions during the initialization of plugins in the FluentCMS system. It provides a way to capture and propagate error information when plugin initialization fails.",
+                          "Features": "The class includes two constructors that mirror the base Exception constructors, enabling both basic exception handling and more complex scenarios where an inner exception is provided.",
+                          "Roles": [
+                            "Exception Handling",
+                            "Error Propagation",
+                            "Plugin Initialization Error"
+                          ],
+                          "Hash": "B4A9169558A2F2092ED391DF449575AFE97F7881FC609C3381769AC299C635BF"
+                        }
+                      },
+                      {
+                        "Name": "PluginInitializer.cs",
+                        "Summary": {
+                          "Summary": "The PluginInitializer class implements the IPluginInitializer interface to initialize plugin types. It checks if the plugin type implements IPluginStartup, creates an instance, and handles initialization errors. The class uses logging to record initialization events and errors, and respects the IgnoreErrors setting from PluginSystemOptions to determine whether to ignore errors or throw exceptions.",
+                          "Exceptions": "The Initialize method handles several exceptions: OperationCanceledException (when cancellation is requested), general exceptions (logged and either ignored or thrown as PluginInitializerException based on IgnoreErrors setting), and ArgumentNullException (for null pluginType).",
+                          "Features": "Key features include: validation of plugin type implementation, cancellation handling, instance creation, logging of initialization status, error handling with IgnoreErrors configuration, and returning PluginMetadata with status and error details.",
+                          "Roles": [
+                            "PluginInitializer: Implements IPluginInitializer to initialize plugins.",
+                            "Logger: Uses ILogger to log initialization and error events.",
+                            "Configuration: Uses PluginSystemOptions to determine error handling behavior.",
+                            "ExceptionHandler: Manages exceptions during plugin initialization.",
+                            "MetadataProvider: Returns PluginMetadata with plugin details and status."
+                          ],
+                          "Hash": "7BCFA6AB0EEDCD6606159F274DC1B1BF575D0FB81E65F7F04CF0F69DCA8C8B46"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  },
+                  {
+                    "Name": "Discovery",
+                    "Path": "src/Plugins/FluentCMS.Infrastructure.Plugins/Discovery",
+                    "FolderSummary": "The Discovery folder implements the plugin discovery mechanism, providing classes, interfaces, and utilities for scanning, loading, and resolving plugin assemblies dynamically within the application\u0027s plugin system.",
+                    "Files": [
+                      {
+                        "Name": "PluginDiscovery.cs",
+                        "Summary": {
+                          "Summary": "The PluginDiscovery.cs file implements the IPluginDiscovery interface for discovering plugin assemblies in a .NET application. It scans directories for assemblies matching specific patterns, loads them using a MetadataLoadContext, and checks for plugins by verifying the presence of a PluginAttribute and implementation of the IPluginStartup interface.",
+                          "Exceptions": "The class handles exceptions through a try-catch block, logging errors and optionally ignoring them based on the pluginSystemOptions.IgnoreErrors flag. Specific exceptions include PluginDiscoveryException for initialization failures and PluginDiscoveryException for scanning errors.",
+                          "Features": "Key features include scanning for assemblies in specified directories, filtering by scan patterns, loading assemblies dynamically, and checking for plugin attributes and startup interfaces.",
+                          "Roles": [
+                            "PluginDiscovery: The main class that implements the IPluginDiscovery interface.",
+                            "IPluginDiscovery: The interface defining the Scan method.",
+                            "PluginSystemOptions: A class containing configuration options for plugin discovery.",
+                            "PathAssemblyResolver: A resolver used to load assemblies from probe paths.",
+                            "MetadataLoadContext: Used to load assemblies dynamically.",
+                            "PluginAttribute: An attribute marking classes as plugins.",
+                            "IPluginStartup: An interface that plugin classes must implement."
+                          ],
+                          "Hash": "56DC8FD9B3025AEE188E23A310757B015C0EACBDCE606BA8B191D18294850C47"
+                        }
+                      },
+                      {
+                        "Name": "PluginDiscoveryException.cs",
+                        "Summary": {
+                          "Summary": "Exception thrown when plugin discovery fails.",
+                          "Exceptions": "PluginDiscoveryException",
+                          "Features": "public class",
+                          "Roles": [
+                            "Exception"
+                          ],
+                          "Hash": "B3F3AF8DA6A86C68F967F552452643D537C8E225EC17D637C0D8C8DCEE91118B"
+                        }
+                      }
+                    ],
+                    "Directories": []
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "IndexedAt": "2026-02-09T08:43:46.7682746Z"
+}
