@@ -76,7 +76,8 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
             cancellationToken.ThrowIfCancellationRequested();  // Add this for per-iteration checks
             try
             {
-                if (AssemblyHasPlugin(assemblyPath))
+                using var mlc = new MetadataLoadContext(_resolver);
+                if (AssemblyHasPlugin(mlc, assemblyPath))
                 {
                     result.Add(assemblyPath);
                     _logger.LogInformation("Discovered plugin assembly: {Assembly}", assemblyPath);
@@ -196,7 +197,7 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
         return true;
     }
 
-    private bool AssemblyHasPlugin(string assemblyPath)
+    private bool AssemblyHasPlugin(MetadataLoadContext mlc, string assemblyPath)
     {
         if (string.IsNullOrWhiteSpace(assemblyPath))
             throw new PluginDiscoveryException("Assembly path cannot be null or empty.");
@@ -207,7 +208,6 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
 
         try
         {
-            using var mlc = new MetadataLoadContext(_resolver);
             var asm = mlc.LoadFromAssemblyPath(assemblyPath);
 
             foreach (var type in asm.GetTypes())
