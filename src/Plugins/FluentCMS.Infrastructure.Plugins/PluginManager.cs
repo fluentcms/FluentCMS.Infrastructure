@@ -33,7 +33,7 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
 
         // Create a timeout-based cancellation token source
         using var timeoutCts = new CancellationTokenSource(_pluginSystemOptions.PluginLoadTimeout);
-        var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
+        using var combinedCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken, timeoutCts.Token);
 
         try
         {
@@ -91,10 +91,6 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                 _logger.LogWarning("Timeout occurred but StrictTimeout is disabled, continuing with partially loaded plugins");
                 // Continue with whatever was loaded successfully - this leaves the system in a partially configured state
             }
-        }
-        finally
-        {
-            combinedCts.Dispose();
         }
     }
 
