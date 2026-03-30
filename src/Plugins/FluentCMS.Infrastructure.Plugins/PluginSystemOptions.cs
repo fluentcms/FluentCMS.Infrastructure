@@ -50,5 +50,5 @@ public class PluginSystemOptions
     /// </summary>
     internal List<AssemblyLoadContext> RegisteredALCs { get; } = [];
 
-    public ILoggerFactory LoggerFactory { get; set; } = default!;
+    public ILoggerFactory LoggerFactory { get; set; } = NullLoggerFactory.Instance;
 }
