@@ -2,7 +2,7 @@
 
 public static class PluginSystemExtensions
 {
-    public static IServiceCollection AddPluginSystem(this IServiceCollection services, IConfiguration configuration, Action<PluginSystemOptions>? configureOptions = null)
+    public static IServiceCollection AddPluginSystem(this IServiceCollection services, IConfiguration configuration, Action<PluginSystemOptions>? configureOptions = null, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(services);
 
@@ -17,7 +17,7 @@ public static class PluginSystemExtensions
             options
         );
 
-        pluginManager.Configure(services, configuration, CancellationToken.None);
+        pluginManager.Configure(services, configuration, cancellationToken);
 
         services.AddSingleton<IPluginManager>(pluginManager);
 
@@ -35,12 +35,12 @@ public static class PluginSystemExtensions
         return options.LoggerFactory.CreateLogger<T>();
     }
 
-    public static IApplicationBuilder UsePluginSystem(this IApplicationBuilder app)
+    public static IApplicationBuilder UsePluginSystem(this IApplicationBuilder app, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(app);
 
         var pluginManager = app.ApplicationServices.GetRequiredService<IPluginManager>();
-        pluginManager.Start(app, CancellationToken.None);
+        pluginManager.Start(app, cancellationToken);
 
         return app;
     }
