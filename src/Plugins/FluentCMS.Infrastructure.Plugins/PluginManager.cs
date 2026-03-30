@@ -133,7 +133,7 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
             }
         }
         _logger.LogInformation("Plugin startup process completed. {Count} plugins started.", _pluginMetadataList.Count(p => p.Status == PluginStatus.Started));
-        var failedCount = _pluginMetadataList.Count(p => p.Status != PluginStatus.Started);
+        var failedCount = _pluginMetadataList.Count(p => p.Status == PluginStatus.StartFailed);
         if (failedCount > 0)
             _logger.LogWarning("Plugins startup process with errors: {Count}", failedCount);
 
