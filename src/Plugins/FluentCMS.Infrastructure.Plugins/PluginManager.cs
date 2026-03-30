@@ -70,8 +70,16 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                     }
                 }
             }
-            _logger.LogInformation("Plugin configuration process completed. {Count} plugins loaded.", _pluginMetadataList.Count(p => p.Status == PluginStatus.Configured));
-            var failedCount = _pluginMetadataList.Count(p => p.Status == PluginStatus.ConfigurationFailed || p.Status == PluginStatus.InitializeFailed || p.Status == PluginStatus.NotInitialized);
+            var configureStatusCounts = _pluginMetadataList
+                .GroupBy(p => p.Status)
+                .ToDictionary(g => g.Key, g => g.Count());
+
+            var configuredCount = configureStatusCounts.GetValueOrDefault(PluginStatus.Configured);
+            var failedCount = configureStatusCounts.GetValueOrDefault(PluginStatus.ConfigurationFailed)
+                            + configureStatusCounts.GetValueOrDefault(PluginStatus.InitializeFailed)
+                            + configureStatusCounts.GetValueOrDefault(PluginStatus.NotInitialized);
+
+            _logger.LogInformation("Plugin configuration process completed. {Count} plugins loaded.", configuredCount);
             if (failedCount > 0)
                 _logger.LogWarning("Plugins configuration process with errors: {Count}", failedCount);
         }
@@ -82,7 +90,8 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                 $"Plugin loading timed out after {_pluginSystemOptions.PluginLoadTimeout.TotalSeconds} seconds" :
                 "Plugin loading was cancelled";
 
-            _logger.LogError("{Message}. Loaded {Loaded} plugins successfully before cancellation.", timeoutMessage, _pluginMetadataList.Count(p => p.Status == PluginStatus.Configured));
+            var configuredOnCancelCount = _pluginMetadataList.Count(p => p.Status == PluginStatus.Configured);
+            _logger.LogError("{Message}. Loaded {Loaded} plugins successfully before cancellation.", timeoutMessage, configuredOnCancelCount);
 
             if (_pluginSystemOptions.StrictTimeout || !cancelledByTimeout)
             {
@@ -132,10 +141,16 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                 }
             }
         }
-        _logger.LogInformation("Plugin startup process completed. {Count} plugins started.", _pluginMetadataList.Count(p => p.Status == PluginStatus.Started));
-        var failedCount = _pluginMetadataList.Count(p => p.Status == PluginStatus.StartFailed);
-        if (failedCount > 0)
-            _logger.LogWarning("Plugins startup process with errors: {Count}", failedCount);
+        var startStatusCounts = _pluginMetadataList
+            .GroupBy(p => p.Status)
+            .ToDictionary(g => g.Key, g => g.Count());
+
+        var startedCount = startStatusCounts.GetValueOrDefault(PluginStatus.Started);
+        var startFailedCount = startStatusCounts.GetValueOrDefault(PluginStatus.StartFailed);
+
+        _logger.LogInformation("Plugin startup process completed. {Count} plugins started.", startedCount);
+        if (startFailedCount > 0)
+            _logger.LogWarning("Plugins startup process with errors: {Count}", startFailedCount);
 
         // Unload ALCs if configured to reduce memory usage
         if (_pluginSystemOptions.UnloadALCsAfterStartup)
