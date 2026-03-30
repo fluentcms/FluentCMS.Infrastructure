@@ -1,0 +1,13 @@
+{
+  "Tasks": [
+    {
+      "Title": "Generate README for FluentCMS.Infrastructure.Common",
+      "AgentName": "DocumentationGenerator",
+      "DetailedInstructions": "Create a README.md file in the project root (src/Common/FluentCMS.Infrastructure.Common/) for NuGet publishing. Include: project description as common utilities for FluentCMS Infrastructure, key features (shared base classes, utilities), installation via NuGet (dotnet add package FluentCMS.Infrastructure.Common), basic usage example, dependencies (none external), and MIT license reference.",
+      "ContextPath": "src/Common/FluentCMS.Infrastructure.Common/",
+      "Priority": 5,
+      "Status": 0
+    }
+  ],
+  "CreatedAt": "2026-02-09T08:45:35.5079343Z"
+}

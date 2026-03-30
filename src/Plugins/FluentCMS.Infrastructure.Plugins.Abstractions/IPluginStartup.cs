@@ -10,9 +10,6 @@ namespace FluentCMS.Infrastructure.Plugins.Abstractions;
 /// </summary>
 public interface IPluginStartup
 {
-    /// <summary>
-    /// Gets the display name of the plugin. Defaults to the assembly name.
-    /// </summary>
     public virtual string Name => GetType().Assembly.GetName().Name ?? string.Empty;
 
     /// <summary>

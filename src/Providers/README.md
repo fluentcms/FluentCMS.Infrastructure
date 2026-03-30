@@ -1,153 +1,136 @@
-# FluentCMS Core Provider System
+# Providers
 
-A comprehensive, pluggable provider system for FluentCMS that enables modular architecture through discoverable, configurable, and swappable service implementations.
+> A modular provider system for FluentCMS, enabling extensible data access and feature implementation.
 
-## Overview
+## 📖 About
 
-The FluentCMS Core Provider System is designed to support multiple implementations of the same functionality while maintaining clean separation of concerns, thread safety, and high performance. This system allows you to plug in different providers for services like email, file storage, caching, logging, and more, with only one provider active per functional area at any given time.
+The Providers project is a core component of FluentCMS, providing a structured way to implement and manage pluggable provider modules. It separates abstractions from concrete implementations, utilizing Entity Framework for data persistence and supporting dynamic module discovery and management. This architecture allows for easy extension of CMS functionality through provider modules that can be discovered at runtime, configured, and injected into the application's dependency injection container.
 
-## Architecture
+## 🚀 Getting Started
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                    Application Layer                         │
-├──────────────────────────────────────────────────────────────┤
-│  IEmailProvider  │ IStorageProvider │ ICacheProvider │ ...   │
-├──────────────────────────────────────────────────────────────┤
-│                 FluentCMS.Providers                          │
-│  ┌─────────────────┐ ┌─────────────────┐ ┌──────────────────┐│
-│  │ ProviderManager │ │ Provider        │ │ Provider         ││
-│  │                 │ │ Discovery       │ │ Resolution       ││
-│  └─────────────────┘ └─────────────────┘ └──────────────────┘│
-├──────────────────────────────────────────────────────────────┤
-│            FluentCMS.Providers.Abstractions                  │
-│    IProvider │ IProviderModule │ ProviderModuleBase          │
-├──────────────────────────────────────────────────────────────┤
-│                 Repository Layer                             │
-│  Configuration    │           Entity Framework               │
-│  Repository       │           Repository                     │
-└──────────────────────────────────────────────────────────────┘
-```
-
-## Key Features
-
-- **🔌 Pluggable Architecture**: Easy provider swapping without code changes
-- **🔍 Auto-Discovery**: Automatic provider module detection via assembly scanning
-- **⚡ High Performance**: Optimized caching, lazy loading, and thread-safe operations
-- **🛡️ Thread-Safe**: Concurrent access with proper synchronization primitives
-- **📊 Configuration Flexible**: Support for both database and configuration file-based management
-- **🎯 Dependency Injection**: Full ASP.NET Core DI container integration
-- **📈 Performance Monitoring**: Built-in caching and performance optimizations
-- **🔒 Data Integrity**: Database constraints ensuring single active provider per area
-
-## Projects
-
-| Project | Description | Documentation |
-|---------|-------------|---------------|
-| **FluentCMS.Providers.Abstractions** | Core interfaces and base classes for provider implementations | [📖 View Documentation](FluentCMS.Providers.Abstractions/README.md) |
-| **FluentCMS.Providers** | Main provider system implementation with discovery, caching, and management | [📖 View Documentation](FluentCMS.Providers/README.md) |
-| **FluentCMS.Providers.Repositories.EntityFramework** | Entity Framework repository implementation for database-backed provider storage | [📖 View Documentation](FluentCMS.Providers.Repositories.EntityFramework/README.md) |
-
-## Quick Start
+### Prerequisites
+* .NET 10.0 or higher
+* FluentCMS infrastructure dependencies
 
 ### Installation
-
 ```bash
-# Core provider system
-dotnet add package FluentCMS.Providers
-
-# For creating custom providers
-dotnet add package FluentCMS.Providers.Abstractions
-
-# For database storage
-dotnet add package FluentCMS.Providers.Repositories.EntityFramework
+# Add package reference (if applicable, adjust path as needed)
+dotnet add package FluentCMS.Infrastructure.Providers
 ```
 
-### Basic Setup
+### Setup
+Add provider services to your `IServiceCollection` in `Program.cs`:
 
 ```csharp
-// Program.cs
-builder.Services.AddProviders(options =>
-{
-    options.AssemblyPrefixesToScan.Add("FluentCMS");
-    options.AssemblyPrefixesToScan.Add("MyCompany");
-});
-
-// Configuration-based storage
-builder.Services.AddProviders().UseConfiguration();
-
-// OR database storage  
-builder.Services.AddProviders().UseEntityFramework();
+builder.Services.AddProviders();
 ```
 
-### Usage
+### Configuration
+Configure provider discovery options via `appsettings.json` or directly in code:
+
+```json
+{
+  "Providers": {
+    "EnableLogging": true,
+    "AssemblyPrefixes": ["FluentCMS"],
+    "IgnoreExceptions": false
+  }
+}
+```
+
+## 🏗️ Architecture Overview
+
+The Providers system is organized into several key components:
+
+### Abstractions Layer
+Defines interfaces and base classes for provider modules:
+- `IProviderModule<TProvider, TOptions>`: Generic interface for typed provider modules
+- `ProviderModuleBase<TProvider, TOptions>`: Base class implementation
+- `IProvider`: Marker interface for concrete providers
+
+### Core Implementation
+Handles module discovery, caching, and management:
+- **ProviderDiscovery**: Scans assemblies for provider modules
+- **ProviderManager**: Manages active providers and module retrieval
+- **ProviderCatalogCache**: Thread-safe caching of provider catalogs
+- **ProviderModuleCatalogCache**: Caches discovered modules
+
+### Data Layer
+Entity Framework-based persistence:
+- **ProviderRepository**: Repository pattern implementation for CRUD operations
+- **ProviderDbContext**: EF Core context for provider entities
+- **ProviderSchemaValidator**: Ensures database schema integrity
+- **ProviderDataSeeder**: Seeds initial provider data
+
+## ✨ Key Features
+
+- **Dynamic Module Discovery**: Automatically detects and loads provider modules from DLLs at runtime
+- **Thread-Safe Operations**: Concurrent dictionary-based caching for high-performance access
+- **Dependency Injection Integration**: Seamlessly integrates with Microsoft.Extensions.DependencyInjection
+- **Configurable Areas**: Organizes providers by functional areas (e.g., admin, user)
+- **Active Provider Management**: Supports single active provider per area to avoid conflicts
+- **Entity Framework Support**: Built-in repository pattern with EF Core for data persistence
+- **Validation and Seeding**: Schema validation and automated data seeding capabilities
+
+## 📋 Usage
+
+### Creating a Provider Module
+
+Implement `IProviderModule<TProvider, TOptions>` for your custom provider:
 
 ```csharp
-public class EmailService
+public class MyProvider : IProvider
 {
-    private readonly IEmailProvider _emailProvider;
-    
-    public EmailService(IEmailProvider emailProvider)
+    // Implementation
+}
+
+public class MyProviderOptions
+{
+    // Configuration options
+}
+
+public class MyProviderModule : ProviderModuleBase<MyProvider, MyProviderOptions>
+{
+    public override void Configure(IServiceCollection services, string? name)
     {
-        _emailProvider = emailProvider;
-    }
-    
-    public async Task SendWelcomeEmail(string email)
-    {
-        await _emailProvider.SendEmailAsync(email, "Welcome!", "Thank you for joining!");
+        services.AddSingleton<MyProvider>();
     }
 }
 ```
 
-## Documentation
+### Registering and Using Providers
 
-For detailed documentation, examples, and advanced usage scenarios, please refer to the individual project documentation:
+Configure providers in your startup:
 
-### 📖 **Core Documentation**
-- **[FluentCMS.Providers](FluentCMS.Providers/README.md)** - Complete setup guide, configuration options, usage examples, and performance optimization
-- **[FluentCMS.Providers.Abstractions](FluentCMS.Providers.Abstractions/README.md)** - Creating custom providers, interface design patterns, and best practices
-- **[FluentCMS.Providers.Repositories.EntityFramework](FluentCMS.Providers.Repositories.EntityFramework/README.md)** - Database setup, migrations, advanced queries, and multi-tenant support
+```csharp
+builder.AddProviders()
+    .AddEntityFrameworkProviders();
+```
 
-### 🚀 **Key Topics Covered**
-- **Getting Started**: Installation, basic setup, and first provider
-- **Provider Development**: Creating custom providers with step-by-step guides
-- **Configuration**: Multiple storage options (configuration files, database)
-- **Performance**: Caching strategies, optimization tips, and benchmarks
-- **Advanced Scenarios**: Provider switching, health monitoring, multi-environment setup
-- **Database Integration**: Schema design, migrations, and advanced queries
-- **Troubleshooting**: Common issues, debugging tips, and solutions
+Access providers through `IProviderManager`:
 
-## Performance & Reliability
+```csharp
+public class MyService
+{
+    private readonly IProviderManager _providerManager;
 
-This system has been optimized for production use with:
+    public MyService(IProviderManager providerManager)
+    {
+        _providerManager = providerManager;
+    }
 
-- **Thread-safe operations** with proper synchronization
-- **Memory-efficient** assembly loading and caching
-- **Database integrity** constraints and transaction management
-- **High-performance** provider resolution (O(1) cached lookups)
-- **Comprehensive error handling** with meaningful diagnostics
+    public async Task<MyProvider> GetActiveProvider(string area)
+    {
+        var activeByArea = await _providerManager.GetActiveByArea(area);
+        // Use the active provider
+    }
+}
+```
 
-For detailed performance characteristics and optimization guides, see the [FluentCMS.Providers documentation](FluentCMS.Providers/README.md#performance-considerations).
+## 📦 Dependencies
 
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Add comprehensive tests
-4. Update relevant documentation
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Support
-
-- 📚 **Documentation**: Individual project README files contain comprehensive guides
-- 🐛 **Issues**: Report bugs or request features on GitHub
-- 💬 **Discussions**: Join the community discussions
-- 📧 **Contact**: Reach out to the maintainers
-
----
-
-*Built with ❤️ for the FluentCMS ecosystem*
+* Microsoft.Extensions.DependencyInjection.Abstractions (10.0.2)
+* Microsoft.Extensions.Hosting.Abstractions (10.0.2)
+* Microsoft.Extensions.Logging.Console (10.0.2)
+* FluentCMS Core Repositories
+* Entity Framework Core (via Repositories)
