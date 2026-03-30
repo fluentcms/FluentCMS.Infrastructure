@@ -90,11 +90,11 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
             {
                 if (_pluginSystemOptions.IgnoreErrors)
                 {
-                    _logger.LogWarning(ex, "Error plugin discovery processing for assembly {Assembly}; continuing because IgnoreErrors = true", assemblyPath);
+                    _logger.LogWarning(ex, "Error during plugin discovery processing for assembly {Assembly}; continuing because IgnoreErrors = true", assemblyPath);
                 }
                 else
                 {
-                    _logger.LogError(ex, "Error plugin discovery processing for assembly {Assembly}", assemblyPath);
+                    _logger.LogError(ex, "Error during plugin discovery processing for assembly {Assembly}", assemblyPath);
                     throw new PluginDiscoveryException($"Error processing assembly {assemblyPath}", ex);
                 }
             }
