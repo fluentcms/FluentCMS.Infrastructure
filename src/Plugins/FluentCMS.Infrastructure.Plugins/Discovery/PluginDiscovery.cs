@@ -1,4 +1,4 @@
-﻿namespace FluentCMS.Infrastructure.Plugins.Discovery;
+namespace FluentCMS.Infrastructure.Plugins.Discovery;
 
 internal interface IPluginDiscovery
 {

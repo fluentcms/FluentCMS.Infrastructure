@@ -56,15 +56,18 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogError(ex, "Error during ConfigureServices of plugin {Plugin}, but continuing due to IgnoreErrors setting", pluginMetadata.Name);
+                    pluginMetadata.Status = PluginStatus.ConfigurationFailed;
+                    pluginMetadata.ErrorMessage = ex.Message;
                     if (_pluginSystemOptions.IgnoreErrors)
                     {
-                        _logger.LogWarning("Ignoring ConfigureServices error for plugin {Plugin} due to configuration.", pluginMetadata.Name);
-                        pluginMetadata.ErrorMessage = ex.Message;
-                        pluginMetadata.Status = PluginStatus.ConfigurationFailed;
+                        _logger.LogWarning(ex, "Plugin {Plugin} failed to configure services; continuing because IgnoreErrors = true", pluginMetadata.Name);
                         continue;
                     }
-                    throw;
+                    else
+                    {
+                        _logger.LogError(ex, "Plugin {Plugin} failed to configure services", pluginMetadata.Name);
+                        throw;
+                    }
                 }
             }
             _logger.LogInformation("Plugin configuration process completed. {Count} plugins loaded.", _pluginMetadataList.Count(p => p.Status == PluginStatus.Configured));
@@ -115,16 +118,18 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Error during startup of plugin {Plugin}, but continuing due to IgnoreErrors setting", pluginMetadata.Name);
+                pluginMetadata.Status = PluginStatus.StartFailed;
+                pluginMetadata.ErrorMessage = ex.Message;
                 if (_pluginSystemOptions.IgnoreErrors)
                 {
-                    _logger.LogWarning("Ignoring startup error for plugin {Plugin} due to configuration.", pluginMetadata.Name);
-                    pluginMetadata.ErrorMessage = ex.Message;
-                    pluginMetadata.Status = PluginStatus.StartFailed;
+                    _logger.LogWarning(ex, "Plugin {Plugin} failed to start; continuing because IgnoreErrors = true", pluginMetadata.Name);
                     continue;
                 }
-
-                throw;
+                else
+                {
+                    _logger.LogError(ex, "Plugin {Plugin} failed to start", pluginMetadata.Name);
+                    throw;
+                }
             }
         }
         _logger.LogInformation("Plugin startup process completed. {Count} plugins started.", _pluginMetadataList.Count(p => p.Status == PluginStatus.Started));
