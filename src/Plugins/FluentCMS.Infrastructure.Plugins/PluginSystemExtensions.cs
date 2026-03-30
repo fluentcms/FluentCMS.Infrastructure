@@ -26,6 +26,9 @@ public static class PluginSystemExtensions
 
     private static ILogger<T> CreateLogger<T>(this PluginSystemOptions options)
     {
+        ArgumentNullException.ThrowIfNull(options.LoggerFactory,
+            $"{nameof(PluginSystemOptions)}.{nameof(PluginSystemOptions.LoggerFactory)} must not be null. " +
+            "Set it in the options delegate passed to AddPluginSystem(), e.g.: options.LoggerFactory = loggerFactory;");
         return options.LoggerFactory.CreateLogger<T>();
     }
 
