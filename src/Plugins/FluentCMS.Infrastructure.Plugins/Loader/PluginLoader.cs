@@ -12,7 +12,7 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
 
     public List<Type> LoadPluginTypes(IEnumerable<string> assemblyFiles, CancellationToken cancellationToken = default)
     {
-        NullArgumentException.ThrowIfNullOrEmpty(assemblyFiles);
+        ArgumentNullException.ThrowIfNull(assemblyFiles);
         cancellationToken.ThrowIfCancellationRequested();
         var types = new List<Type>();
 
