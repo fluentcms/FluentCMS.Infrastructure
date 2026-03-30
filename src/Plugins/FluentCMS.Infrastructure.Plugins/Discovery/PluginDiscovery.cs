@@ -71,12 +71,12 @@ internal class PluginDiscovery(ILogger<PluginDiscovery> logger, PluginSystemOpti
             }
         }
 
-        using var mlc = new MetadataLoadContext(_resolver);
         foreach (var assemblyPath in assemblyFiles)
         {
             cancellationToken.ThrowIfCancellationRequested();  // Add this for per-iteration checks
             try
             {
+                using var mlc = new MetadataLoadContext(_resolver);
                 if (AssemblyHasPlugin(mlc, assemblyPath))
                 {
                     result.Add(assemblyPath);
