@@ -72,7 +72,7 @@ public class MyPlugin : IPluginStartup
 
 Name your plugin assembly so it matches one of the `ScanAssemblyPatterns` (e.g. `MyApp.Plugins.MyFeature.dll`). The plugin system discovers and loads all matching assemblies found alongside the host application's executable.
 
-> **Note:** `PluginDiscovery`, `PluginLoader`, and `PluginInitializer` are **internal** implementation details and cannot be used directly. All public interaction with the plugin system goes through `AddPluginSystem()` / `UsePluginSystem()` and the `IPluginManager` service.
+> **Note:** `PluginDiscovery`, `PluginLoader`, and `PluginInitializer` are **internal** implementation details and cannot be used directly. All public interaction with the plugin system goes through `AddPluginSystem()` / `UsePluginSystem()` and the public plugin abstractions (such as `IPluginStartup`).
 
 ## Dependencies
 
