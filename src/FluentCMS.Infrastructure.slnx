@@ -20,6 +20,9 @@
   <Folder Name="/Plugins/">
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins.Abstractions/FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
     <Project Path="Plugins/FluentCMS.Infrastructure.Plugins/FluentCMS.Infrastructure.Plugins.csproj" />
+    <Project Path="Plugins/FluentCMS.PluginSystem.TestPlugins/FluentCMS.PluginSystem.TestPlugins.csproj" />
+    <Project Path="Plugins/FluentCMS.PluginSystem.Tests.Unit/FluentCMS.PluginSystem.Tests.Unit.csproj" />
+    <Project Path="Plugins/FluentCMS.PluginSystem.Tests.Integration/FluentCMS.PluginSystem.Tests.Integration.csproj" />
   </Folder>
   <Folder Name="/Providers/">
     <Project Path="Providers/FluentCMS.Infrastructure.Providers.Abstractions/FluentCMS.Infrastructure.Providers.Abstractions.csproj" />

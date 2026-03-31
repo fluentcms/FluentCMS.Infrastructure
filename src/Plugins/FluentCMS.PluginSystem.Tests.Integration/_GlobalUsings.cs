@@ -1,0 +1,12 @@
+global using Xunit;
+global using FluentAssertions;
+global using Moq;
+global using FluentCMS.Infrastructure.Plugins;
+global using FluentCMS.Infrastructure.Plugins.Abstractions;
+global using FluentCMS.Infrastructure.Plugins.Discovery;
+global using FluentCMS.PluginSystem.TestPlugins;
+global using Microsoft.AspNetCore.Builder;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Logging.Abstractions;

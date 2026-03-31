@@ -15,4 +15,18 @@
     <ProjectReference Include="..\FluentCMS.Infrastructure.Plugins.Abstractions\FluentCMS.Infrastructure.Plugins.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <!-- Allow test projects to access internal types -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>FluentCMS.PluginSystem.Tests.Unit</_Parameter1>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>FluentCMS.PluginSystem.Tests.Integration</_Parameter1>
+    </AssemblyAttribute>
+    <!-- Allow Moq's DynamicProxyGenAssembly2 to create proxies for internal interfaces -->
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+      <_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+    </AssemblyAttribute>
+  </ItemGroup>
+
 </Project>
