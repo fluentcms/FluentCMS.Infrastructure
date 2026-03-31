@@ -6,8 +6,20 @@ namespace FluentCMS.Infrastructure.Plugins.Abstractions;
 
 /// <summary>
 /// Central interface for all plugins in the FluentCMS plugin system.
-/// Plugins must implement this interface and be marked with the [Plugin] attribute.
+/// Plugins must implement this interface and be marked with <see cref="PluginAttribute"/>.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <b>Design decision — single source of truth for plugin metadata:</b>
+/// <c>IPluginStartup</c> is the <b>sole owner</b> of all plugin metadata and runtime configuration,
+/// including name, version, and load priorities. The companion <see cref="PluginAttribute"/> is
+/// intentionally a pure discovery marker with no metadata properties.
+/// </para>
+/// <para>
+/// This single-ownership rule prevents conflicting values (e.g., priority 1 on the attribute vs.
+/// priority 5 on the interface) and gives plugin authors one clear location for all configuration.
+/// </para>
+/// </remarks>
 public interface IPluginStartup
 {
     public virtual string Name => GetType().Assembly.GetName().Name ?? string.Empty;
