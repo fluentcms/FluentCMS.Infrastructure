@@ -16,12 +16,17 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
         cancellationToken.ThrowIfCancellationRequested();
         var types = new List<Type>();
 
+        // Snapshot loaded assemblies once to avoid O(N×M) allocations inside the loop.
+        // AppDomain.CurrentDomain.GetAssemblies() copies the entire assembly array on every call;
+        // calling it once per plugin file would produce N unnecessary copies.
+        var loadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+
         foreach (var assemblyFile in assemblyFiles)
         {
             cancellationToken.ThrowIfCancellationRequested();
             try
             {
-                var preloadedAssembly = FindLoaded(assemblyFile, cancellationToken);
+                var preloadedAssembly = FindLoaded(assemblyFile, loadedAssemblies, cancellationToken);
 
                 if (preloadedAssembly != null)
                 {
@@ -82,20 +87,22 @@ internal class PluginLoader(ILogger<PluginLoader> logger, PluginSystemOptions pl
     /// Attempts to find an already loaded assembly matching the given path.
     /// </summary>
     /// <param name="assemblyPath">The full path to the assembly file.</param>
+    /// <param name="loadedAssemblies">
+    /// A snapshot of all currently loaded assemblies, obtained once before the per-plugin loop to
+    /// avoid the O(N×M) allocation cost of calling <see cref="AppDomain.GetAssemblies"/> on every iteration.
+    /// </param>
     /// <param name="cancellationToken">A token to cancel the operation.</param>
     /// <returns>The loaded assembly if found; otherwise, null.</returns>
-    private Assembly? FindLoaded(string assemblyPath, CancellationToken cancellationToken = default)
+    private Assembly? FindLoaded(string assemblyPath, Assembly[] loadedAssemblies, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         try
         {
-            // Check if already loaded
+            // Check if already loaded using the pre-snapshotted array to avoid repeated allocations.
             var asmName = AssemblyName.GetAssemblyName(assemblyPath);
-            var loadedAsm = AppDomain.CurrentDomain.GetAssemblies()
-                .FirstOrDefault(a => AssemblyName.ReferenceMatchesDefinition(a.GetName(), asmName));
-
-            return loadedAsm;
+            return loadedAssemblies.FirstOrDefault(
+                a => AssemblyName.ReferenceMatchesDefinition(a.GetName(), asmName));
         }
         catch (Exception ex) when (ex is not OperationCanceledException)
         {
