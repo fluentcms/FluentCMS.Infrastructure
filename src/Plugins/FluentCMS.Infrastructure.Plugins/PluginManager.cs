@@ -161,6 +161,18 @@ internal class PluginManager(IPluginDiscovery pluginDiscovery, IPluginInitialize
             {
                 try
                 {
+                    // Null out Instance references for all plugins whose types were loaded into this ALC.
+                    // This must be done BEFORE calling Unload() to prevent dangling references into the
+                    // now-dead AssemblyLoadContext, which would cause InvalidOperationException or silent
+                    // memory-model failures when callers (e.g. health checks, diagnostics) access Instance.
+                    var alcAssemblies = new HashSet<Assembly>(alc.Assemblies);
+                    foreach (var metadata in _pluginMetadataList.Where(m => alcAssemblies.Contains(m.Type.Assembly)))
+                    {
+                        metadata.Instance = null;
+                        metadata.Status = PluginStatus.Unloaded;
+                        _logger.LogDebug("Cleared Instance reference for plugin {Plugin} prior to ALC unload", metadata.Name);
+                    }
+
                     alc.Unload();
                     unloadedCount++;
                     _logger.LogDebug("Unloaded ALC for reduction of memory footprint");

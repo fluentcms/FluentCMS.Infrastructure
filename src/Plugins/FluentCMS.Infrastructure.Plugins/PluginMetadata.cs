@@ -19,4 +19,5 @@ public enum PluginStatus
     ConfigurationFailed,
     Started,
     StartFailed,
+    Unloaded,
 }
