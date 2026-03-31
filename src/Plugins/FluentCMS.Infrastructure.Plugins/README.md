@@ -38,7 +38,7 @@ builder.Services.AddPluginSystem(builder.Configuration, options =>
     // If true, plugin loading failures are logged but don't stop application startup
     options.IgnoreErrors = true;
 
-    // Provide a logger factory (required; defaults to NullLoggerFactory)
+    // Optionally provide a non-null logger factory (defaults to NullLoggerFactory.Instance)
     options.LoggerFactory = LoggerFactory.Create(b => b.AddConsole());
 });
 
