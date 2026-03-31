@@ -6,7 +6,7 @@ namespace FluentCMS.Infrastructure.Plugins.Abstractions;
 
 /// <summary>
 /// Central interface for all plugins in the FluentCMS plugin system.
-/// Plugins must implement this interface and be marked with the <see cref="PluginAttribute"/> attribute.
+/// Plugins must implement this interface and be marked with <see cref="PluginAttribute"/>.
 /// </summary>
 /// <remarks>
 /// <para>
