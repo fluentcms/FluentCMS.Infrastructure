@@ -32,39 +32,47 @@ var builder = WebApplication.CreateBuilder(args);
 // Configure plugin system
 builder.Services.AddPluginSystem(builder.Configuration, options =>
 {
-    options.PluginDirectory = "path/to/plugins";
-    // Additional configuration...
+    // Patterns used to scan for plugin assemblies (default: ["FluentCMS.Plugins.*"])
+    options.ScanAssemblyPatterns = ["MyApp.Plugins.*"];
+
+    // If true, plugin loading failures are logged but don't stop application startup
+    options.IgnoreErrors = true;
+
+    // Optionally provide a non-null logger factory (defaults to NullLoggerFactory.Instance)
+    options.LoggerFactory = LoggerFactory.Create(b => b.AddConsole());
 });
 
 var app = builder.Build();
 
-// Start plugin system
+// Start plugin system (calls Configure on every loaded plugin)
 app.UsePluginSystem();
 ```
 
 ### Creating a Plugin
 
-Implement the `IPluginStartup` interface in your plugin assembly:
+Reference `FluentCMS.Infrastructure.Plugins.Abstractions` from your plugin project and implement the `IPluginStartup` interface:
 
 ```csharp
 using FluentCMS.Infrastructure.Plugins.Abstractions;
 
-[PluginAttribute]
+[Plugin] // Marks this class as a plugin entry point for automatic discovery
 public class MyPlugin : IPluginStartup
 {
-    public void ConfigureServices(IServiceCollection services, IConfiguration configuration)
+    public void ConfigureServices(IServiceCollection services, IConfiguration? configuration)
     {
-        // Add plugin services here
+        // Register plugin services here
     }
 
     public void Configure(IApplicationBuilder app)
     {
-        // Configure the application pipeline here
+        // Configure middleware or endpoints here
     }
 }
 ```
 
-Place your plugin assembly in the specified plugin directory, and it will be loaded automatically.
+Name your plugin assembly so it matches one of the `ScanAssemblyPatterns` (e.g. `MyApp.Plugins.MyFeature.dll`). The plugin system discovers and loads all matching assemblies found alongside the host application's executable.
+
+> **Note:** `PluginDiscovery`, `PluginLoader`, and `PluginInitializer` are **internal** implementation details and cannot be used directly. All public interaction with the plugin system goes through `AddPluginSystem()` / `UsePluginSystem()` and the public plugin abstractions (such as `IPluginStartup`).
 
 ## Dependencies
 
